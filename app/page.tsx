@@ -12,9 +12,12 @@ import {
   Library,
   BookOpen,
   ShoppingBag,
+  ArrowRight,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import NewBooks from "./components/NewBooks";
+import { Card, CardContent } from "@/components/ui/card";
 export default function Home() {
   const bannerImages = [
     "/images/book1.jpg",
@@ -161,6 +164,129 @@ export default function Home() {
                 </Link>
               </div>
             </Button>
+          </div>
+        </div>
+      </section>
+      <NewBooks />
+      <Button
+        size={"lg"}
+        className="flex mt-10 mb-10 mx-auto bg-yellow-500 px-8 py-6 rounded-xl"
+      >
+        <Link href="/books">
+          <div className="text-sm">Explore All Books</div>
+        </Link>
+      </Button>
+
+      {/* How to Sell Section */}
+      <section className="py-16 bg-amber-50">
+        <div className="container mx-auto px-4 ">
+          <div className="text-center font-bold mb-4">
+            <h2 className="text-3xl mb-4">
+              How to Sell your Old Books Online on BookKart ?
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Saving some good amount of money by buying used books is just 3
+              steps away from you :)
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            <div className="hidden md:block absolute top-1/2 left-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -z-10 " />
+            {sellSteps.map((step, index) => (
+              <div className="relative flex flex-col h-full" key={index}>
+                <div className="bg-white rounded-xl p-8 shadow-lg text-center grow flex flex-col">
+                  <div className="absolute top-2 left-14 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
+                    {step.step}
+                  </div>
+                  <div className="w-16 mb-2 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                    {step.icon}
+                  </div>
+                  <h3 className="font-semibold mb-2">{step.title}</h3>
+                  <p className="text-gray-600 text-sm grow">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* How to Buy Section */}
+      <section className="py-16 bg-linear-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4 ">
+          <div className="text-center font-bold mb-4">
+            <h2 className="text-3xl mb-4">
+              How to Buy second hand Books Online on BookKart ?
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Saving some good amount of money by buying used books is just 3
+              steps away from you :)
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            <div className="hidden md:block absolute top-1/2 left-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -z-10 " />
+            {buySteps.map((step, index) => (
+              <div className="relative flex flex-col h-full" key={index}>
+                <div className="bg-yellow-400 rounded-xl p-8 shadow-lg text-center grow flex flex-col">
+                  <div className="absolute top-2 left-14 -translate-x-1/2 bg-white text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
+                    {step.step}
+                  </div>
+                  <div className="w-16 mb-2 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                    {step.icon}
+                  </div>
+                  <h3 className="font-semibold mb-2">{step.title}</h3>
+                  <p className="text-gray-600 text-sm grow">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* Blog  post Section */}
+      <section className="py-16 bg-[rgb(221,224,254)]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Read from our <span className="text-primary">Blog</span>
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {blogPosts.map((post, index) => (
+              <Card
+                key={index}
+                className="h-full flex  flex-col overflow-hidden transition-all duration-300 hover:shadow-lg"
+              >
+                <CardContent className="p-0 flex flex-col h-full">
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={post.imageSrc}
+                      alt={post.title}
+                      fill
+                      objectFit="cover"
+                      className="transition-transform duration-300 hover:scale-105 object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col grow">
+                    <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
+                      <div className="bg-primary-10 p-2 rounded-full">
+                        {post.icon}
+                      </div>
+                      <span className="grow">{post.title}</span>
+                    </h3>
+                    <p className="text-gray-600 text-sm grow">
+                      {post.description}
+                    </p>
+                    <Button
+                      className="mt-4 p-0 flex items-center cursor-pointer text-pretty"
+                      variant={"link"}
+                    >
+                      Read More <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
