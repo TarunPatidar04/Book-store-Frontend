@@ -95,7 +95,7 @@ const NewBooks = () => {
                                     </div>
                                   </div>
                                   <div className="pt-4">
-                                    <Button className="flex float-end mb-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-500">
+                                    <Button className="flex float-end mb-2 bg-linear-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-500">
                                       Buy Now
                                     </Button>
                                   </div>

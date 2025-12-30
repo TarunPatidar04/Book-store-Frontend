@@ -133,7 +133,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-6 text-center">
             <Button
               size={"lg"}
-              className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 rounded-xl"
+              className="group bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 rounded-xl"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
@@ -150,7 +150,7 @@ export default function Home() {
 
             <Button
               size={"lg"}
-              className="group bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-8 py-6 rounded-xl"
+              className="group bg-linear-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-8 py-6 rounded-xl"
             >
               <div className="flex items-center gap-3">
                 <div className="bg-black/20 p-2 rounded-lg group-hover:bg-black/30 transition-colors">

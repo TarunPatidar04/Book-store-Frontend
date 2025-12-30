@@ -36,7 +36,7 @@ const NoData = ({
       {onClick && (
         <button
           onClick={onClick}
-          className="px-6 w-60 py-3 bg-gradient-to-r rounded-xl shadow-lg hover:shadow-xl hover:scale-105 font-medium from-blue-500 via-indigo-500 to-purple-300 text-white transform transition duration-300 ease-in-out"
+          className="px-6 w-60 py-3 bg-linear-to-r rounded-xl shadow-lg hover:shadow-xl hover:scale-105 font-medium from-blue-500 via-indigo-500 to-purple-300 text-white transform transition duration-300 ease-in-out"
         >
           {buttonText}
         </button>
