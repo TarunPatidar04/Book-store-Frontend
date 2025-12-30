@@ -25,6 +25,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heading3, Heart } from "lucide-react";
 import Pagination from "../components/Pagination";
+import NoData from "../components/NoData";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,6 +36,7 @@ const page = () => {
   const [sortOption, setSortOption] = useState("newest");
   const [isLoading, setIsLoading] = useState(false);
   const bookPerPage = 6;
+  const router = useRouter();
 
   const togelFilter = (section: string, item: string) => {
     const updateFilter = (prev: string[]) => {
@@ -278,7 +281,15 @@ const page = () => {
                 />
               </>
             ) : (
-              <></>
+              <>
+                <NoData
+                  imageUrl="/images/no-book.jpg"
+                  message="No books available please try later."
+                  description="Try adjusting your filters or search criteria to find what you're looking for."
+                  onClick={() => router.push("/book-sell")}
+                  buttonText="Shell Your First Book"
+                />
+              </>
             )}
           </div>
         </div>
