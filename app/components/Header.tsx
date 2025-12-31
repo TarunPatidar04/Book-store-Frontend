@@ -39,12 +39,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import AuthPage from "./AuthPage";
 
 const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
-  const isLoggedinOpen = useSelector(
+  const isLoginOpen = useSelector(
     (state: RootState) => state.user.isLoginDialogOpen
   );
   const user = {
@@ -327,6 +328,10 @@ const Header = () => {
           </div>
         </Link>
       </div>
+      <AuthPage
+        isLogginOpen={isLoginOpen ?? false}
+        setIsLoginOpen={handleLoginClick}
+      />
     </header>
   );
 };
