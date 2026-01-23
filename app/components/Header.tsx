@@ -106,6 +106,11 @@ const Header = () => {
           },
         ]),
     {
+      icon: <Lock className="h-5 w-5" />,
+      label: "Login / Signup",
+      onclick: () => handleLoginClick(),
+    },
+    {
       icon: <User className="h-5 w-5" />,
       label: "My Profile",
       onclick: () => handleProtectionNavigation("/account/profile"),

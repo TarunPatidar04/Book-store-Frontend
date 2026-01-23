@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import BookLoader from "@/lib/BookLoader";
 import { persistor, store } from "@/store/store";
 import React from "react";
@@ -14,7 +14,16 @@ export default function LayoutWrapper({
   return (
     <Provider store={store}>
       <PersistGate loading={<BookLoader />} persistor={persistor}>
-        <Toaster />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          containerStyle={{ zIndex: 999999 }}
+          toastOptions={{
+            style: {
+              zIndex: 999999,
+            },
+          }}
+        />
         {children}
       </PersistGate>
     </Provider>
