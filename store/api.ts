@@ -142,7 +142,7 @@ export const api = createApi({
       providesTags: ["Product"],
     }),
 
-    deleteProduct: builder.mutation({
+    deleteProductById: builder.mutation({
       query: (productId) => ({
         url: API_URLS.DELETE_PRODUCTS_BY_PRODUCT_ID(productId),
         method: "DELETE",
@@ -252,3 +252,52 @@ export const api = createApi({
     }),
   }),
 });
+
+export const {
+  // USER ENDPOINTS
+  useRegisterMutation,
+  useLoginMutation,
+  useVerifyEmailMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  useVerifyAuthMutation,
+  useLogoutMutation,
+  useUpdateUserMutation,
+
+  // -------------------------------------------------------------------------------------------------------------
+
+  // PRODUCT ENDPOINTS
+  useAddProductsMutation,
+  useGetProductsQuery,
+  useGetProductsByIdQuery,
+  useGetProductsBySelletIdQuery,
+  useDeleteProductByIdMutation,
+
+  // -------------------------------------------------------------------------------------------------------------
+
+  // CARD ENDPOINTS
+  useAddToCartMutation,
+  useRemoveFromCartMutation,
+  useGetCartQuery,
+
+  // -------------------------------------------------------------------------------------------------------------
+
+  // WISHLIST ENDPOINTS
+  useAddToWishlistMutation,
+  useRemoveFromWishlistMutation,
+  useGetWishlistQuery,
+
+  // -------------------------------------------------------------------------------------------------------------
+
+  // ORDER ENDPOINTS
+  useGetUserOrdersQuery,
+  useGetOrdersByIdQuery,
+  useCreateOrUpdateOrderMutation,
+  useCreateRazorpayPaymentMutation,
+
+  // -------------------------------------------------------------------------------------------------------------
+
+  // ADDRESS ENDPOINTS
+  useGetAddressQuery,
+  useAddOrUpdateAddressMutation,
+} = api;
