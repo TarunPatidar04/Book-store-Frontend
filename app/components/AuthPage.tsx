@@ -54,7 +54,7 @@ interface ForgotPasswordFormData {
 
 const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
   const [currentTab, setcurrentTab] = useState<"login" | "signup" | "forgot">(
-    "login"
+    "login",
   );
   const [showPassword, setShowPassword] = useState(false);
   const [forgetPasswordSuccess, setForgetPasswordSuccess] = useState(false);
@@ -112,6 +112,7 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
         toast.success("User Login Successfully");
         dispatch(toggleLoginDialog());
         dispatch(authStatus());
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

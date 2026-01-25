@@ -16,7 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { toggleLoginDialog } from "@/store/slice/userSlice";
+import { logout, toggleLoginDialog } from "@/store/slice/userSlice";
 import { RootState } from "@/store/store";
 import {
   BookLock,
@@ -40,20 +40,23 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthPage from "./AuthPage";
+import { useLogoutMutation } from "@/store/api";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoginOpen = useSelector(
-    (state: RootState) => state.user.isLoginDialogOpen
+    (state: RootState) => state.user.isLoginDialogOpen,
   );
-  const user = {
-    profilePicture: "",
-    name: "Tarun Patidar",
-    email: "tarunpatidar@gmail.com",
-  };
-  const userPlaceHolder = "";
+  const user = useSelector((state: RootState) => state.user.user);
+  const [logoutMutation] = useLogoutMutation();
+  console.log(user);
+  const userPlaceHolder = user?.name
+    ?.split(" ")
+    .map((name: string) => name[0])
+    .join("");
 
   const handleLoginClick = () => {
     dispatch(toggleLoginDialog());
@@ -70,8 +73,15 @@ const Header = () => {
     }
   };
 
-  const handleLogout = () => {
-    console.log("Logout");
+  const handleLogout = async () => {
+    try {
+      await logoutMutation({}).unwrap();
+      dispatch(logout());
+      toast.success("Logout Successfully");
+      setIsDropDownOpen(false);
+    } catch (error) {
+      toast.error("Logout Failed");
+    }
   };
 
   const menuItem = [
@@ -105,11 +115,7 @@ const Header = () => {
             onclick: () => handleLoginClick(),
           },
         ]),
-    {
-      icon: <Lock className="h-5 w-5" />,
-      label: "Login / Signup",
-      onclick: () => handleLoginClick(),
-    },
+
     {
       icon: <User className="h-5 w-5" />,
       label: "My Profile",
@@ -156,13 +162,15 @@ const Header = () => {
       href: "/how-it-works",
     },
 
-    ...(user && [
-      {
-        icon: <LogOut className="h-5 w-5" />,
-        label: "Logout",
-        onclick: () => handleLogout(),
-      },
-    ]),
+    ...(user && user
+      ? [
+          {
+            icon: <LogOut className="h-5 w-5" />,
+            label: "Logout",
+            onclick: () => handleLogout(),
+          },
+        ]
+      : []),
     ,
   ];
 
@@ -191,7 +199,7 @@ const Header = () => {
             <span>{item?.label}</span>
             <ChevronRight className="w-4 h-4 ml-auto" />
           </button>
-        )
+        ),
       )}
     </div>
   );
