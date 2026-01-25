@@ -9,6 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  BASE_URL,
   useForgotPasswordMutation,
   useLoginMutation,
   useRegisterMutation,
@@ -26,6 +27,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -66,6 +68,7 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
   const [register] = useRegisterMutation();
   const [login] = useLoginMutation();
   const [forgotPassword] = useForgotPasswordMutation();
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     register: registerLogin,
@@ -119,6 +122,24 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
       toast.error("Invalid Email or Password");
     } finally {
       setLoginLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setGoogleLoading(true);
+    try {
+      router.push(`${BASE_URL}/auth/google`);
+      dispatch(authStatus());
+      dispatch(toggleLoginDialog());
+
+      setTimeout(() => {
+        toast.success("User Login Successfully");
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+      toast.error("Invalid Email or Password");
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -231,6 +252,7 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
                     <div className="flex-1 h-px bg-gray-300"></div>
                   </div>
                   <Button
+                    onClick={handleGoogleLogin}
                     type="button"
                     className="w-full flex items-center cursor-pointer justify-center gap-2 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 font-bold"
                     disabled={googleLoading}

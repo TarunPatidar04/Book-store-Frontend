@@ -263,7 +263,6 @@ export default function Home() {
                       src={post.imageSrc}
                       alt={post.title}
                       fill
-                      objectFit="cover"
                       className="transition-transform duration-300 hover:scale-105 object-cover rounded-lg"
                     />
                   </div>

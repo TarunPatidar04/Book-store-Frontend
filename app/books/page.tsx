@@ -98,7 +98,7 @@ const page = () => {
 
   const paginatedBooks = sortedBooks.slice(
     (currentPage - 1) * bookPerPage,
-    currentPage * bookPerPage
+    currentPage * bookPerPage,
   );
 
   const handlePageChange = (page: number) => {
@@ -154,8 +154,8 @@ const page = () => {
                               key === "condition"
                                 ? selectedCondition.includes(value)
                                 : key === "classType"
-                                ? selectedType.includes(value)
-                                : selectedCategory.includes(value)
+                                  ? selectedType.includes(value)
+                                  : selectedCategory.includes(value)
                             }
                             onCheckedChange={() => togelFilter(key, value)}
                           />
@@ -213,7 +213,7 @@ const page = () => {
                           <Link href={`/books/${book._id}`}>
                             <div className="relative">
                               <Image
-                                src={book.images[0]}
+                                src={book.images[0] || "/images/no-book.jpg"}
                                 alt={book.title}
                                 width={400}
                                 height={300}
@@ -222,12 +222,12 @@ const page = () => {
                               <div className="absolute top-0 left-0 flex flex-col gap-2 z-10 p-2">
                                 {calculateDiscount(
                                   book.price,
-                                  book.finalPrice
+                                  book.finalPrice,
                                 ) > 0 && (
                                   <Badge className=" bg-orange-600/90 text-white hover:bg-orange-700">
                                     {calculateDiscount(
                                       book.price,
-                                      book.finalPrice
+                                      book.finalPrice,
                                     )}
                                     % Off
                                   </Badge>

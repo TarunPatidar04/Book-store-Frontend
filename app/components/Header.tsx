@@ -51,6 +51,8 @@ const Header = () => {
     (state: RootState) => state.user.isLoginDialogOpen,
   );
   const user = useSelector((state: RootState) => state.user.user);
+  console.log(user);
+
   const [logoutMutation] = useLogoutMutation();
   console.log(user);
   const userPlaceHolder = user?.name
@@ -90,19 +92,18 @@ const Header = () => {
           {
             href: "account/profile",
             content: (
-              <div className="flex space-x-4 item-center p-2 border-b">
+              <div className="flex space-x-4 items-center p-2 border-b">
                 <Avatar className="w-12 h-12 -ml-2 rounded-full">
                   {user?.profilePicture ? (
-                    <AvatarImage alt="user image"></AvatarImage>
+                    <AvatarImage src={user.profilePicture} alt="user image" />
                   ) : (
                     <AvatarFallback>{userPlaceHolder}</AvatarFallback>
                   )}
                 </Avatar>
+
                 <div className="flex flex-col">
-                  <span className="font-semibold text-md ">{user?.name}</span>
-                  <span className="text-xs text-gray-500">
-                    {user?.email}
-                  </span>{" "}
+                  <span className="font-semibold text-md">{user?.name}</span>
+                  <span className="text-xs text-gray-500">{user?.email}</span>
                 </div>
               </div>
             ),
@@ -246,7 +247,7 @@ const Header = () => {
               <Button variant={"ghost"}>
                 <Avatar className="w-8 h-8 rounded-full">
                   {user?.profilePicture ? (
-                    <AvatarImage alt="user image"></AvatarImage>
+                    <AvatarImage src={user.profilePicture} alt="user image" />
                   ) : userPlaceHolder ? (
                     <AvatarFallback>{userPlaceHolder}</AvatarFallback>
                   ) : (

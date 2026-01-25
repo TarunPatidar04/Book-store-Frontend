@@ -57,7 +57,9 @@ const NewBooks = () => {
                                 <Link href={`book/${book._id}`}>
                                   <div className="relative ">
                                     <Image
-                                      src={book.images[0]}
+                                      src={
+                                        book.images[0] || "/images/no-book.jpg"
+                                      }
                                       alt={book.title}
                                       width={200}
                                       height={300}
@@ -65,12 +67,12 @@ const NewBooks = () => {
                                     />
                                     {calculateDiscount(
                                       book.price,
-                                      book.finalPrice
+                                      book.finalPrice,
                                     ) > 0 && (
                                       <span className="absolute left-0 top-2 rounded-r-lg bg-red-500 px-2 text-xs font-medium text-white">
                                         {calculateDiscount(
                                           book.price,
-                                          book.finalPrice
+                                          book.finalPrice,
                                         )}
                                         % off
                                       </span>
