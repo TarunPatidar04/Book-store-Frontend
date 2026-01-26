@@ -143,6 +143,22 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
     }
   };
 
+  const onSubmitForgotPassword = async (data: ForgotPasswordFormData) => {
+    setForgotPasswordLoading(true);
+    try {
+      const result = await forgotPassword(data.email).unwrap();
+      if (result.success) {
+        toast.success("Password Reset Link Sent to your Email successfully");
+        setForgetPasswordSuccess(true);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to send Password Reset Link");
+    } finally {
+      setForgotPasswordLoading(false);
+    }
+  };
+
   return (
     <Dialog open={isLogginOpen} onOpenChange={setIsLoginOpen}>
       <DialogContent className="sm:max-w-[425px] p-6 ">
@@ -410,7 +426,13 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
 
                 <TabsContent value="forgot" className="space-y-4">
                   {!forgetPasswordSuccess ? (
-                    <form action="" className="space-y-4">
+                    <form
+                      action=""
+                      className="space-y-4"
+                      onSubmit={handleForgotPasswordSubmit(
+                        onSubmitForgotPassword,
+                      )}
+                    >
                       <div className="relative">
                         <Input
                           {...registerForgotPassword("email", {

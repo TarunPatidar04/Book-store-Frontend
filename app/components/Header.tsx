@@ -118,47 +118,47 @@ const Header = () => {
         ]),
 
     {
-      icon: <User className="h-5 w-5" />,
+      icon: <User className="h-5 w-5 cursor-pointer" />,
       label: "My Profile",
       onclick: () => handleProtectionNavigation("/account/profile"),
     },
     {
-      icon: <Package className="h-5 w-5" />,
+      icon: <Package className="h-5 w-5 cursor-pointer" />,
       label: "My Orders",
       onclick: () => handleProtectionNavigation("/account/orders"),
     },
     {
-      icon: <PiggyBank className="h-5 w-5" />,
+      icon: <PiggyBank className="h-5 w-5 cursor-pointer" />,
       label: "My Selling Orders",
       onclick: () => handleProtectionNavigation("/account/selling-products"),
     },
     {
-      icon: <ShoppingCart className="h-5 w-5" />,
+      icon: <ShoppingCart className="h-5 w-5 cursor-pointer" />,
       label: "Cart",
       onclick: () => handleProtectionNavigation("/checkout/cart"),
     },
     {
-      icon: <Heart className="h-5 w-5" />,
+      icon: <Heart className="h-5 w-5 cursor-pointer" />,
       label: "my wishlist",
       onclick: () => handleProtectionNavigation("/account/wishlist"),
     },
     {
-      icon: <User2 className="h-5 w-5" />,
+      icon: <User2 className="h-5 w-5 cursor-pointer" />,
       label: "About Us",
       href: "/about-us",
     },
     {
-      icon: <FileTerminal className="h-5 w-5" />,
+      icon: <FileTerminal className="h-5 w-5 cursor-pointer" />,
       label: "Terms and Use",
       href: "/terms-of-use",
     },
     {
-      icon: <BookLock className="h-5 w-5" />,
+      icon: <BookLock className="h-5 w-5 cursor-pointer" />,
       label: "Privacy Policy",
       href: "/privacy-policy",
     },
     {
-      icon: <HelpCircle className="h-5 w-5" />,
+      icon: <HelpCircle className="h-5 w-5 cursor-pointer" />,
       label: "Help Center",
       href: "/how-it-works",
     },
@@ -166,7 +166,7 @@ const Header = () => {
     ...(user && user
       ? [
           {
-            icon: <LogOut className="h-5 w-5" />,
+            icon: <LogOut className="h-5 w-5 cursor-pointer" />,
             label: "Logout",
             onclick: () => handleLogout(),
           },
@@ -244,7 +244,7 @@ const Header = () => {
           </Link>
           <DropdownMenu open={isDropDownOpen} onOpenChange={setIsDropDownOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant={"ghost"}>
+              <Button variant={"ghost"} className="cursor-pointer">
                 <Avatar className="w-8 h-8 rounded-full">
                   {user?.profilePicture ? (
                     <AvatarImage src={user.profilePicture} alt="user image" />
