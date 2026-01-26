@@ -14,7 +14,11 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from "@/store/api";
-import { authStatus, toggleLoginDialog } from "@/store/slice/userSlice";
+import {
+  authStatus,
+  toggleLoginDialog,
+  setUser,
+} from "@/store/slice/userSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   CheckCircle,
@@ -114,8 +118,8 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
       if (result.success) {
         toast.success("User Login Successfully");
         dispatch(toggleLoginDialog());
+        dispatch(setUser(result.user));
         dispatch(authStatus());
-        window.location.reload();
       }
     } catch (error) {
       console.log(error);
