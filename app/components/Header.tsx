@@ -205,7 +205,7 @@ const Header = () => {
     </div>
   );
   return (
-    <header className="border-b bg-white sticky top-0 z-50 ">
+    <header className="border-b bg-white sticky top-0 z-50 text-gray-900">
       {/* DeskTop Header */}
       <div className="container w-[80%] mx-auto hidden lg:flex items-center justify-between p-4">
         <Link href="/" className="flex items-center">
