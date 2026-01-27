@@ -10,7 +10,14 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import NoData from "../components/NoData";
 import Link from "next/link";
-import { Book, Camera, ChevronRight, HelpCircle, X } from "lucide-react";
+import {
+  Book,
+  Camera,
+  ChevronRight,
+  DollarSign,
+  HelpCircle,
+  X,
+} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -38,6 +45,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const page = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
@@ -486,6 +494,88 @@ const page = () => {
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+            </CardContent>
+          </Card>
+
+          {/* PRICE DETAILS */}
+          <Card className="shadow-lg border-t-4 border-t-yellow-500">
+            <CardHeader className="bg-linear-to-r from-yellow-50 to-amber-50">
+              <CardTitle className="text-2xl flex items-center text-yellow-700">
+                <DollarSign className="mr-2 h-6 w-6" />
+                Price Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="title"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  Your Price (in Rs.)
+                </Label>
+                <div className="md:w-3/4">
+                  <Input
+                    id="finalPrice"
+                    type="text"
+                    {...register("finalPrice", {
+                      required: "Final Price is required",
+                    })}
+                    placeholder="Enter your price"
+                  />
+                  {errors.finalPrice && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.finalPrice.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="category"
+                  className="md:w-1/4  mt-2 font-medium text-gray-700"
+                >
+                  Shipping Charges
+                </Label>
+                <div className="space-y-4   md:w-3/4">
+                  <div className="flex items-center gap-4">
+                    <Input
+                      id="shippingCharge"
+                      type="text"
+                      {...register("shippingCharge")}
+                      placeholder="Enter shipping charges"
+                      className="w-full md:w-1/2"
+                      disabled={watch("shippingCharge") === "free"}
+                    />
+                    <span className="text-sm">Or</span>
+                    <div className="flex items-center space-x-2">
+                      <Controller
+                        name="shippingCharge"
+                        control={control}
+                        rules={{
+                          required: "Shipping Charge is required",
+                        }}
+                        render={({ field }) => (
+                          <Checkbox
+                            className="cursor-pointer"
+                            id="freeShipping"
+                            checked={field.value === "free"}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked ? "free" : "");
+                            }}
+                          />
+                        )}
+                      />
+                      <Label htmlFor="freeShipping" className="cursor-pointer">
+                        Free Shipping
+                      </Label>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Buyers prefer free shipping or low shipping charges
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </form>
