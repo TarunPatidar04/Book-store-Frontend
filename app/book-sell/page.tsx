@@ -10,8 +10,14 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import NoData from "../components/NoData";
 import Link from "next/link";
-import { Book, Camera, ChevronRight, X } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Book, Camera, ChevronRight, HelpCircle, X } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import {
@@ -25,6 +31,12 @@ import { filters } from "@/lib/Constant";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const page = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
@@ -375,6 +387,80 @@ const page = () => {
                   )}
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* OPTIONAL DETAILS */}
+          <Card className="shadow-lg border-t-4 border-t-green-500">
+            <CardHeader className="bg-linear-to-r from-green-50 to-emerald-50">
+              <CardTitle className="text-2xl text-green-700 flex items-center">
+                <HelpCircle className="mr-2 h-6 w-6" />
+                Optional Details
+              </CardTitle>
+              <CardDescription>(Description,MRP,Author,etc...)</CardDescription>
+            </CardHeader>
+            <CardContent className="pt-6 ">
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>Book Information</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4">
+                      <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                        <Label
+                          htmlFor="price"
+                          className="md:w-1/4 font-medium text-gray-700"
+                        >
+                          MRP
+                        </Label>
+
+                        <Input
+                          type="text"
+                          {...register("price")}
+                          placeholder="Enter Book MRP"
+                          className="md:w-3/4"
+                        />
+                        {/* {errors.price && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors.price.message}
+                          </p>
+                        )} */}
+                      </div>
+
+                      <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                        <Label
+                          htmlFor="author"
+                          className="md:w-1/4 font-medium text-gray-700"
+                        >
+                          Author
+                        </Label>
+
+                        <Input
+                          type="text"
+                          {...register("author")}
+                          placeholder="Enter Book MRP"
+                          className="md:w-3/4"
+                        />
+                      </div>
+
+                      <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                        <Label
+                          htmlFor="edition"
+                          className="md:w-1/4 font-medium text-gray-700"
+                        >
+                          Edition (year)
+                        </Label>
+
+                        <Input
+                          type="text"
+                          {...register("edition")}
+                          placeholder="Enter Book Edition"
+                          className="md:w-3/4"
+                        />
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </CardContent>
           </Card>
         </form>
