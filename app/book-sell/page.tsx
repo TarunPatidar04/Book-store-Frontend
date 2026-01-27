@@ -37,6 +37,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Textarea } from "@/components/ui/textarea";
 
 const page = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
@@ -455,6 +456,30 @@ const page = () => {
                           {...register("edition")}
                           placeholder="Enter Book Edition"
                           className="md:w-3/4"
+                        />
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>Add Description</AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4">
+                      <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                        <Label
+                          htmlFor="description"
+                          className="md:w-1/4 font-medium text-gray-700"
+                        >
+                          Description
+                        </Label>
+
+                        <Textarea
+                          id="discription"
+                          {...register("description")}
+                          placeholder="Enter Book Description"
+                          className="md:w-3/4"
+                          rows={4}
                         />
                       </div>
                     </div>
