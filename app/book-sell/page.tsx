@@ -1,11 +1,30 @@
+"use client";
 import { BookDetails } from "@/lib/types/type";
 import { useAddProductsMutation } from "@/store/api";
+import { toggleLoginDialog } from "@/store/slice/userSlice";
 import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import NoData from "../components/NoData";
+import Link from "next/link";
+import { Book, Camera, ChevronRight, X } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { filters } from "@/lib/Constant";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const page = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
@@ -20,6 +39,7 @@ const page = () => {
     setValue,
     watch,
     reset,
+    control,
     formState: { errors },
   } = useForm<BookDetails>({
     defaultValues: {
@@ -95,8 +115,272 @@ const page = () => {
       toast.error("Failed to Add Book, Please Try Again later");
     }
   };
+  const paymentMode = watch("paymentMode");
 
-  return <div>page</div>;
+  const handleOpenLogin = () => {
+    dispatch(toggleLoginDialog());
+  };
+
+  if (!user) {
+    return (
+      <NoData
+        message="Please log in to access your cart."
+        description="You need to be logged in to view your cart and checkout."
+        buttonText="Login"
+        imageUrl="/images/login.jpg"
+        onClick={handleOpenLogin}
+      />
+    );
+  }
+  return (
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white py-12">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <div className="mb-10 text-center">
+          <h1 className="text-4xl font-bold mb-4 text-blue-600">
+            Sell Your Used Books
+          </h1>
+          <p className="text-xl text-gray-600 mb-4">
+            submit free classified add to sell your used book for cash in India
+          </p>
+          <Link
+            href="#"
+            className="text-blue-500 hover:underline inline-flex items-center"
+          >
+            Learn how it Works
+            <ChevronRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+        <form action="" onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <Card className="shadow-lg border-t-4 border-t-blue-500">
+            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50">
+              <CardTitle className="text-2xl flex items-center text-blue-700">
+                <Book className="mr-2 h-6 w-6" />
+                Book Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="title"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  Ad Title
+                </Label>
+                <div className="md:w-3/4">
+                  <Input
+                    type="text"
+                    {...register("title", {
+                      required: "Title is required",
+                    })}
+                    placeholder="Enter your ad  Title"
+                  />
+                  {errors.title && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.title.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="category"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  Book Type
+                </Label>
+                <div className="md:w-3/4">
+                  <Controller
+                    name="category"
+                    control={control}
+                    rules={{
+                      required: "Category is required",
+                    }}
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Please Select book type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {filters.category.map((category) => (
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.category && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.category.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="category"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  Book Condition
+                </Label>
+                <div className="md:w-3/4">
+                  <Controller
+                    name="condition"
+                    control={control}
+                    rules={{
+                      required: "Book Condition is required",
+                    }}
+                    render={({ field }) => (
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        className="flex space-x-4 w-full"
+                      >
+                        {filters.condition.map((condition) => (
+                          <div
+                            key={condition}
+                            className="flex items-center space-x-2"
+                          >
+                            <RadioGroupItem
+                              value={condition.toLowerCase()}
+                              id={condition.toLowerCase()}
+                            />
+                            <Label htmlFor={condition.toLowerCase()}>
+                              {condition}
+                            </Label>
+                          </div>
+                        ))}
+                      </RadioGroup>
+                    )}
+                  />
+                  {errors.condition && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.condition.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="classType"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  For Class
+                </Label>
+                <div className="md:w-3/4">
+                  <Controller
+                    name="classType"
+                    control={control}
+                    rules={{
+                      required: "classType is required",
+                    }}
+                    render={({ field }) => (
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Please Select book type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {filters.classType.map((classType) => (
+                            <SelectItem key={classType} value={classType}>
+                              {classType}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.classType && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.classType.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label
+                  htmlFor="subject"
+                  className="md:w-1/4 font-medium text-gray-700"
+                >
+                  Book Subject
+                </Label>
+                <div className="md:w-3/4">
+                  <Input
+                    type="text"
+                    {...register("subject", {
+                      required: "subject is required",
+                    })}
+                    placeholder="Enter your book subject"
+                  />
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.subject.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className=" block mb-2 font-medium text-gray-700">
+                  Upload Photos
+                </Label>
+                <div className="border-2 border-dashed border-blue-300 p-4 rounded-lg bg-blue-50">
+                  <div className="flex flex-col items-center gap-2">
+                    <Camera className="w-8 h-8 text-blue-500" />
+                    <Label
+                      htmlFor="images"
+                      className=" cursor-pointer font-medium text-blue-700 hover:underline"
+                    >
+                      click here to upload up to 4 images (size:15MB max,each)
+                    </Label>
+                    <Input
+                      type="file"
+                      id="images"
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                    />
+                  </div>
+                  {uploadedImages.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 mt-4">
+                      {uploadedImages.map((image, index) => (
+                        <div className="relative" key={index}>
+                          <Image
+                            src={image}
+                            alt={`book image -${index + 1}`}
+                            width={200}
+                            height={200}
+                            className="w-full border-gray-200 h-32 object-cover rounded-lg"
+                          />
+                          <Button
+                            variant="destructive"
+                            onClick={() => removeImage(index)}
+                            size="icon"
+                            className="absolute -top-2 -right-2 cursor-pointer"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default page;
