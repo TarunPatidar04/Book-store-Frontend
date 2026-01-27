@@ -14,8 +14,10 @@ import {
   Book,
   Camera,
   ChevronRight,
+  CreditCard,
   DollarSign,
   HelpCircle,
+  Loader2,
   X,
 } from "lucide-react";
 import {
@@ -49,7 +51,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const page = () => {
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
-  const [addProducts] = useAddProductsMutation();
+  const [addProducts, { isLoading }] = useAddProductsMutation();
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -578,6 +580,213 @@ const page = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* BANK DETAILS */}
+          <Card className="shadow-lg border-t-4 border-t-blue-500">
+            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50">
+              <CardTitle className="text-2xl flex items-center text-yellow-700">
+                <CreditCard className="mr-2 h-6 w-6" />
+                Bank Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6 pt-6">
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                <Label className="md:w-1/4 font-medium text-gray-700">
+                  Payment Mode
+                </Label>
+                <div className="md:w-3/4 space-y-2">
+                  <p className="text-sm text-muted-foreground mb-2">
+                    After your Book is sold ,is what mode you like to receive
+                    the payment
+                  </p>
+                  <Controller
+                    name="paymentMode"
+                    control={control}
+                    rules={{
+                      required: "Payment Mode is required",
+                    }}
+                    render={({ field }) => (
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        className="flex space-x-4 w-full"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="UPI"
+                            id="UPI"
+                            {...register("paymentMode")}
+                            className="cursor-pointer"
+                          />
+                          <Label htmlFor="UPI" className="cursor-pointer">
+                            UPI ID/Number
+                          </Label>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem
+                            value="Bank Account"
+                            id="bank account"
+                            {...register("paymentMode")}
+                            className="cursor-pointer"
+                          />
+                          <Label
+                            htmlFor="bank account"
+                            className="cursor-pointer"
+                          >
+                            Bank Account
+                          </Label>
+                        </div>
+                      </RadioGroup>
+                    )}
+                  />
+                  {errors.paymentMode && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.paymentMode.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {paymentMode === "UPI" && (
+                <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                  <Label
+                    htmlFor="upiId"
+                    className="md:w-1/4 font-medium text-gray-700"
+                  >
+                    UPI ID
+                  </Label>
+                  <div className="md:w-3/4">
+                    <Input
+                      type="text"
+                      {...register("paymentDetails.upiId", {
+                        required: "UPI ID is required",
+                        pattern: {
+                          value:
+                            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                          message: "Invalid UPI ID for format",
+                        },
+                      })}
+                      placeholder="Enter your UPI ID"
+                    />
+                    {errors.paymentDetails?.upiId && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.paymentDetails?.upiId.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {paymentMode === "Bank Account" && (
+                <>
+                  <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <Label
+                      htmlFor="accountNumber"
+                      className="md:w-1/4 font-medium text-gray-700"
+                    >
+                      Account Number
+                    </Label>
+                    <div className="md:w-3/4">
+                      <Input
+                        type="text"
+                        {...register(
+                          "paymentDetails.bankDetails.accountNumber",
+                          {
+                            required: "Account Number is required",
+                            pattern: {
+                              value: /^[0-9]{9-18}$/,
+                              message: "Invalid Account Number",
+                            },
+                          },
+                        )}
+                        placeholder="Enter your Account Number"
+                      />
+                      {errors.paymentDetails?.bankDetails?.accountNumber && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {
+                            errors.paymentDetails?.bankDetails?.accountNumber
+                              .message
+                          }
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <Label
+                      htmlFor="ifscCode"
+                      className="md:w-1/4 font-medium text-gray-700"
+                    >
+                      Ifsc Code
+                    </Label>
+                    <div className="md:w-3/4">
+                      <Input
+                        type="text"
+                        {...register("paymentDetails.bankDetails.ifscCode", {
+                          required: "Ifsc Code is required",
+                          pattern: {
+                            value: /^[A-Z]{4}0[A-z0-9]{6}$/,
+                            message: "Invalid ifsc Code",
+                          },
+                        })}
+                        placeholder="Enter your ifsc Code"
+                      />
+                      {errors.paymentDetails?.bankDetails?.ifscCode && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.paymentDetails?.bankDetails?.ifscCode.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <Label
+                      htmlFor="bank Name"
+                      className="md:w-1/4 font-medium text-gray-700"
+                    >
+                      Bank Name
+                    </Label>
+                    <div className="md:w-3/4">
+                      <Input
+                        type="text"
+                        {...register("paymentDetails.bankDetails.bankName", {
+                          required: "Bank Name is required",
+                        })}
+                        placeholder="Enter your Bank Name"
+                      />
+                      {errors.paymentDetails?.bankDetails?.bankName && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.paymentDetails?.bankDetails?.bankName.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+
+          <Button
+            type="submit"
+            disabled={isLoading}
+            className="w-60 text-md bg-linear-to-r from-blue-500 to-indigo-600 text-white hover:from-orange-600  hover:to-orange-700 font-semibold rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="animate-spin" /> Saving...
+              </>
+            ) : (
+              "Post Your Book"
+            )}
+          </Button>
+          <p className="text-sm text-center text-gray-500">
+            By clicking Post Your Book, you agree to our{" "}
+            <a href="/terms-of-use" target="_blank" className="text-blue-500">
+              Terms of Service
+            </a>
+            .
+          </p>
         </form>
       </div>
     </div>
