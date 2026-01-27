@@ -1,4 +1,5 @@
 "use client";
+import NoData from "@/app/components/NoData";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,6 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import BookLoader from "@/lib/BookLoader";
+import { BookDetails } from "@/lib/types/type";
+import { useGetProductsByIdQuery } from "@/store/api";
 import { formatDistanceToNow } from "date-fns";
 import {
   CheckCircle2,
@@ -21,46 +25,51 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const page = () => {
   const params = useParams();
   const id = params.id;
   const [selectedImage, setSelectedImage] = useState(0);
   const [isAddToCart, setIsAddToCart] = useState(false);
-  const router = useRouter();
+  const {
+    data: apiResponse = {},
+    isLoading,
+    isError,
+  } = useGetProductsByIdQuery(id);
+  const [books, setBooks] = useState<BookDetails | null>(null);
 
-  const books = {
-    _id: "1",
-    images: [
-      "https://media.istockphoto.com/id/910384920/photo/kid-reading-near-locked-door.webp?a=1&b=1&s=612x612&w=0&k=20&c=J3FL4ZVORItw_bkLzlVo4WO-xUy22S7Qqbuq2xusNnc=",
-      "https://plus.unsplash.com/premium_vector-1721077382049-f4deff3c4cf7?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FydG9vbnxlbnwwfHwwfHx8MA%3D%3D",
-    ],
-    title: "The Alchemist",
-    category: "Reading Books (Novels)",
-    condition: "Excellent",
-    classType: "B.Com",
-    subject: "Fiction",
-    price: 300,
-    author: "Paulo Coelho",
-    edition: "25th Anniversary Edition",
-    description:
-      "A philosophical book about a shepherd's journey to realize his dreams.",
-    finalPrice: 250,
-    shippingCharge: 50,
-    paymentMode: "UPI",
-    paymentDetails: {
-      upiId: "example@upi",
-    },
-    createdAt: new Date("2024-01-01"),
-    seller: { name: "John Doe", contact: "1234567890" },
-  };
+  useEffect(() => {
+    if (apiResponse.success) {
+      setBooks(apiResponse.data);
+    }
+  }, [apiResponse]);
+
+  const router = useRouter();
 
   const handleAddToCart = (productId: string) => {};
 
   const handleAddToWishlist = (productId: string) => {};
 
-  const BookImage = books.images || [];
+  const BookImage = books?.images || [];
+
+  if (isLoading) {
+    return <BookLoader />;
+  }
+
+  if (!books || isError) {
+    return (
+      <div className="my-10 max-w-3xl justify-center mx-auto">
+        <NoData
+          imageUrl="/images/no-book.jpg"
+          message="Loading...."
+          description="Wait, we are fetching book details"
+          onClick={() => router.push("/book-sell")}
+          buttonText="Sell Your First Book"
+        />
+      </div>
+    );
+  }
 
   const calculateDiscount = (price: number, finalPrice: number): number => {
     if (price > finalPrice && price > 0) {
@@ -99,9 +108,16 @@ const page = () => {
                 fill
                 className="object-contain"
               />
-              {calculateDiscount(books.price, books.finalPrice) > 0 && (
+              {calculateDiscount(
+                books?.price as number,
+                books?.finalPrice as number,
+              ) > 0 && (
                 <span className="absolute left-0 top-2 rounded-r-lg px-2 py-1 font-medium bg-orange-600/90 text-white hover:bg-orange-700">
-                  {calculateDiscount(books.price, books.finalPrice)}% Off
+                  {calculateDiscount(
+                    books?.price as number,
+                    books?.finalPrice as number,
+                  )}
+                  % Off
                 </span>
               )}
             </div>
@@ -252,20 +268,24 @@ const page = () => {
                       <span className="font-semibold">{books.seller.name}</span>
                       <Badge className="text-green-600" variant={"secondary"}>
                         <CheckCircle2 className="h-3 w-3 mr-1" />
-                        Verified
+                        {books.seller?.isVerified ? "Verified" : "Not Verified"}
                       </Badge>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <MapPin className="h-4 w-4" />
-                      Indore MP
+                      {books.seller?.addresses?.[0]?.city
+                        ? `${books.seller?.addresses?.[0]?.city}, ${books.seller?.addresses?.[0]?.state}`
+                        : `Location not available`}
                     </div>
                   </div>
                 </div>
               </div>
-              {books.seller.contact && (
+              {books?.seller?.phoneNumber && (
                 <div className="flex items-center gap-2 text-sm">
                   <MessageCircle className="h-4 w-4 text-blue-600" />
-                  <span className="">Contact : {books.seller.contact}</span>
+                  <span className="">
+                    Contact : {books?.seller?.phoneNumber}
+                  </span>
                 </div>
               )}
             </CardContent>

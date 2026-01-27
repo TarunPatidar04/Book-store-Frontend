@@ -8,7 +8,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { books, filters } from "@/lib/Constant";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import BookLoader from "@/lib/BookLoader";
 import {
@@ -27,6 +27,8 @@ import { Heading3, Heart } from "lucide-react";
 import Pagination from "../components/Pagination";
 import NoData from "../components/NoData";
 import { useRouter } from "next/navigation";
+import { useGetProductsQuery } from "@/store/api";
+import { BookDetails } from "@/lib/types/type";
 
 const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,7 +36,15 @@ const page = () => {
   const [selectedType, setSelectedType] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [sortOption, setSortOption] = useState("newest");
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: apiResponse = {}, isLoading } = useGetProductsQuery({});
+  const [books, setBooks] = useState<BookDetails[]>([]);
+    useEffect(() => {
+    if (apiResponse.success) {
+      setBooks(apiResponse.data);
+    }
+    
+  }, [apiResponse]);
+
   const bookPerPage = 6;
   const router = useRouter();
 
@@ -221,12 +231,12 @@ const page = () => {
                               />
                               <div className="absolute top-0 left-0 flex flex-col gap-2 z-10 p-2">
                                 {calculateDiscount(
-                                  book.price,
+                                  book.price as number,
                                   book.finalPrice,
                                 ) > 0 && (
                                   <Badge className=" bg-orange-600/90 text-white hover:bg-orange-700">
                                     {calculateDiscount(
-                                      book.price,
+                                      book.price as number,
                                       book.finalPrice,
                                     )}
                                     % Off

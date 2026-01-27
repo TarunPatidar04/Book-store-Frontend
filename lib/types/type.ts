@@ -31,6 +31,7 @@ export interface UserData {
   profilePicture?: string;
   phoneNumber?: string;
   addresses?: Address[];
+  isVerified?: boolean;
 }
 
 export interface Address {
