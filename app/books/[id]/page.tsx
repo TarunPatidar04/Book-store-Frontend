@@ -11,7 +11,18 @@ import {
 } from "@/components/ui/card";
 import BookLoader from "@/lib/BookLoader";
 import { BookDetails } from "@/lib/types/type";
-import { useGetProductsByIdQuery } from "@/store/api";
+import {
+  useAddToCartMutation,
+  useAddToWishlistMutation,
+  useGetProductsByIdQuery,
+  useRemoveFromWishlistMutation,
+} from "@/store/api";
+import { addToCart } from "@/store/slice/cartSlice";
+import {
+  addWishlistAction,
+  removeWishlistAction,
+} from "@/store/slice/wishlistSlice";
+import { RootState } from "@/store/store";
 import { formatDistanceToNow } from "date-fns";
 import {
   CheckCircle2,
@@ -26,6 +37,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const page = () => {
   const params = useParams();
@@ -38,7 +51,11 @@ const page = () => {
     isError,
   } = useGetProductsByIdQuery(id);
   const [books, setBooks] = useState<BookDetails | null>(null);
-
+  const [addToCartMutation] = useAddToCartMutation();
+  const [addToWishlistMutation] = useAddToWishlistMutation();
+  const [removeWishlistMutation] = useRemoveFromWishlistMutation();
+  const wishlist = useSelector((state: RootState) => state.wishlist.item);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (apiResponse.success) {
       setBooks(apiResponse.data);
@@ -47,9 +64,58 @@ const page = () => {
 
   const router = useRouter();
 
-  const handleAddToCart = (productId: string) => {};
+  const handleAddToCart = async () => {
+    if (books) {
+      setIsAddToCart(true);
+      try {
+        const result = await addToCartMutation({
+          productId: books._id,
+          quantity: 1,
+        }).unwrap();
+        if (result.success && result.data) {
+          dispatch(addToCart(result.data));
+          toast.success(result.message || "Book added to cart");
+        } else {
+          toast.error(result.message || "Failed to add book to cart");
+        }
+      } catch (error: any) {
+        console.log(error?.data?.message);
+        toast.error(error?.data?.message || "Failed to add book to cart");
+      } finally {
+        setIsAddToCart(false);
+      }
+    }
+  };
 
-  const handleAddToWishlist = (productId: string) => {};
+  const handleAddToWishlist = async (productId: string) => {
+    try {
+      const isWishlist = wishlist.some((item) =>
+        item.products.includes(productId),
+      );
+      if (isWishlist) {
+        const result = await removeWishlistMutation(productId).unwrap();
+        if (result.success) {
+          dispatch(removeWishlistAction(productId));
+          toast.success(result.message || "Book removed from wishlist");
+        } else {
+          toast.error(result.message || "Failed to remove book from wishlist");
+        }
+      } else {
+        const result = await addToWishlistMutation(productId).unwrap();
+        if (result.success) {
+          dispatch(addWishlistAction(result.data));
+          toast.success(result.message || "Book added to wishlist");
+        } else {
+          toast.error(result.message || "Failed to add book to wishlist");
+        }
+      }
+    } catch (error: any) {
+      console.log(error?.data?.message);
+      toast.error(
+        error?.data?.message || "Failed to remove book from wishlist",
+      );
+    }
+  };
 
   const BookImage = books?.images || [];
 
@@ -160,10 +226,16 @@ const page = () => {
                   variant={"outline"}
                   size={"sm"}
                   onClick={() => handleAddToWishlist(books._id)}
-                  className="flex items-center gap-2"
+                  className="flex cursor-pointer items-center gap-2"
                 >
-                  <Heart className={`h-4 w-4 mr-1 fill-red-500`} />
-                  <span className="hidden md:inline">Add</span>
+                  <Heart
+                    className={`h-4 w-4 mr-1 cursor-pointer ${wishlist.some((item) => item.products.includes(books._id)) ? "fill-red-500" : ""}`}
+                  />
+                  <span className="hidden md:inline cursor-pointer">
+                    {wishlist.some((item) => item.products.includes(books._id))
+                      ? "Remove"
+                      : "Add"}
+                  </span>
                 </Button>
               </div>
             </div>
@@ -179,7 +251,11 @@ const page = () => {
                   Shipping Available
                 </Badge>
               </div>
-              <Button className="w-60 py-6 bg-blue-700">
+              <Button
+                className="w-60 py-6 bg-blue-700"
+                onClick={() => handleAddToCart()}
+                disabled={isAddToCart}
+              >
                 {isAddToCart ? (
                   <>
                     <Loader2 className="animate-spin mr-2 " size={20} />
