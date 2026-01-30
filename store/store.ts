@@ -12,6 +12,8 @@ import {
   REGISTER,
 } from "redux-persist";
 import useReducer from "./slice/userSlice";
+import cartReducer from "./slice/cartSlice";
+import wishlistReducer from "./slice/wishlistSlice";
 import { api } from "./api";
 // persist configuration for  user data  save the data in Local storage
 const userPersistConfig = {
@@ -20,14 +22,32 @@ const userPersistConfig = {
   whitelist: ["user", "isEmailVerified", "isLoggedIn"], // only these will be persisted
 };
 
+const cartPersistConfig = {
+  key: "cart",
+  storage,
+  whitelist: ["item"], // only these will be persisted
+};
+
+const wishlistPersistConfig = {
+  key: "wishlist",
+  storage,
+};
+
 // wrap your reducers with persistConfig
 
 const persistUserReducer = persistReducer(userPersistConfig, useReducer);
+const persistCartReducer = persistReducer(cartPersistConfig, cartReducer);
+const persistWishlistReducer = persistReducer(
+  wishlistPersistConfig,
+  wishlistReducer,
+);
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer, //rtk query api reducer
     user: persistUserReducer, // persisted user reducer
+    cart: persistCartReducer, // persisted cart reducer
+    wishlist: persistWishlistReducer, // persisted wishlist reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -44,6 +64,6 @@ setupListeners(store.dispatch); // setup listeners for RTK query
 export const persistor = persistStore(store);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch
+export type AppDispatch = typeof store.dispatch;
