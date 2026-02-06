@@ -1,5 +1,6 @@
 "use client";
 import NoData from "@/app/components/NoData";
+import { ShareButton } from "@/app/components/Share";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -219,9 +220,11 @@ const page = () => {
                 </p>
               </div>
               <div className="flex gap-2">
-                <Button variant={"outline"} className="flex items-center gap-2">
-                  Share
-                </Button>
+                <ShareButton
+                  url={`${window.location.origin}/books/${books._id}`}
+                  title={`Check out this book: ${books.title}`}
+                  text={`I found this Interesting boook on Book Kart ${books.title}`}
+                />
                 <Button
                   variant={"outline"}
                   size={"sm"}
