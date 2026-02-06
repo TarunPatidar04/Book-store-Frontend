@@ -663,7 +663,7 @@ const page = () => {
                         required: "UPI ID is required",
                         pattern: {
                           value:
-                            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                            /^[a-zA-Z0-9._-]{2,256}@[a-zA-Z]{2,64}$/,
                           message: "Invalid UPI ID for format",
                         },
                       })}
