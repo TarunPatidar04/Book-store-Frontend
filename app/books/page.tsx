@@ -38,11 +38,17 @@ const page = () => {
   const [sortOption, setSortOption] = useState("newest");
   const { data: apiResponse = {}, isLoading } = useGetProductsQuery({});
   const [books, setBooks] = useState<BookDetails[]>([]);
-    useEffect(() => {
+
+  const searchTerms =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : null;
+  const searchQuery = searchTerms?.get("search");
+
+  useEffect(() => {
     if (apiResponse.success) {
       setBooks(apiResponse.data);
     }
-    
   }, [apiResponse]);
 
   const bookPerPage = 6;
@@ -88,7 +94,15 @@ const page = () => {
       selectedCategory
         .map((category) => category.toLowerCase())
         .includes(book.category.toLowerCase());
-    return conditionMatch && typeMatch && categoryMatch;
+
+    const searchMatch = searchQuery
+      ? book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (book.author &&
+          book.author.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        book.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.subject.toLowerCase().includes(searchQuery.toLowerCase())
+      : true;
+    return conditionMatch && typeMatch && categoryMatch && searchMatch;
   });
 
   const sortedBooks = [...filteredBooks].sort((a, b) => {

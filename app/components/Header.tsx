@@ -58,6 +58,13 @@ const Header = () => {
     (state: RootState) => state.cart.items.length,
   );
   const { data: cartData } = useGetCartQuery(user?._id, { skip: !user?._id });
+const [searchTerms, setSearchTerms] = useState("");
+
+
+const handleSearch = () => {
+    router.push(`/books?search=${encodeURIComponent(searchTerms)}`)
+}
+
   const [logoutMutation] = useLogoutMutation();
   const userPlaceHolder = user?.name
     ?.split(" ")
@@ -233,11 +240,14 @@ const Header = () => {
               type="text"
               placeholder="Book Name / Author / Subject / Publisher"
               className="w-full pr-10"
+              value={searchTerms}
+              onChange={(e) => setSearchTerms(e.target.value)}
             />
             <Button
               size={"icon"}
               variant={"ghost"}
               className="absolute right-0 top-1/2 -translate-y-1/2"
+              onClick={handleSearch}
             >
               <Search className="h-5 w-5" />
             </Button>
