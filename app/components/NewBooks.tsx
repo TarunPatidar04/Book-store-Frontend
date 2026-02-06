@@ -19,12 +19,12 @@ const NewBooks = () => {
       
     }, [apiResponse]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentBookSlide((prev) => (prev + 1) % 3);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setCurrentBookSlide((prev) => (prev + 1) % 3);
+  //   }, 3000);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   const prevSlide = () => {
     setCurrentBookSlide((prev) => (prev - 1 + 3) % 3);
