@@ -37,11 +37,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AuthPage from "./AuthPage";
-import { useLogoutMutation } from "@/store/api";
+import { useGetCartQuery, useLogoutMutation } from "@/store/api";
 import toast from "react-hot-toast";
+import { setCart } from "@/store/slice/cartSlice";
 
 const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -53,8 +54,11 @@ const Header = () => {
   const user = useSelector((state: RootState) => state.user.user);
   console.log(user);
 
+  const cartItemCount = useSelector(
+    (state: RootState) => state.cart.items.length,
+  );
+  const { data: cartData } = useGetCartQuery(user?._id, { skip: !user?._id });
   const [logoutMutation] = useLogoutMutation();
-  console.log(user);
   const userPlaceHolder = user?.name
     ?.split(" ")
     .map((name: string) => name[0])
@@ -64,6 +68,12 @@ const Header = () => {
     dispatch(toggleLoginDialog());
     setIsDropDownOpen(false);
   };
+
+  useEffect(() => {
+    if (cartData?.success && cartData?.data) {
+      dispatch(setCart(cartData?.data));
+    }
+  }, [cartData, dispatch]);
 
   const handleProtectionNavigation = (href: string) => {
     if (user) {
@@ -267,9 +277,9 @@ const Header = () => {
                 <ShoppingCart className="h-5 w-5 mr-2" />
                 Cart
               </Button>
-              {user && (
+              {user && cartItemCount > 0 && (
                 <span className="absolute top-2 left-5 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full px-1">
-                  3
+                  {cartItemCount}
                 </span>
               )}
             </div>

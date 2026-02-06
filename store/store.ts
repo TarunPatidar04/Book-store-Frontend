@@ -25,7 +25,7 @@ const userPersistConfig = {
 const cartPersistConfig = {
   key: "cart",
   storage,
-  whitelist: ["item"], // only these will be persisted
+  whitelist: ["items"], // only these will be persisted
 };
 
 const wishlistPersistConfig = {

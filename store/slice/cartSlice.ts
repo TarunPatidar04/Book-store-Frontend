@@ -4,7 +4,7 @@ import { CartItem } from "@/lib/types/type";
 export interface CartState {
   _id: string;
   userId: string;
-  item: CartItem[];
+  items: CartItem[];
   createdAt: string;
   updatedAt: string;
 }
@@ -12,7 +12,7 @@ export interface CartState {
 const initialState: CartState = {
   _id: "",
   userId: "",
-  item: [],
+  items: [],
   createdAt: "",
   updatedAt: "",
 };
