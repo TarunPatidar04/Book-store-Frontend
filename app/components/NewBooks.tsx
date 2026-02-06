@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { books } from "@/lib/Constant";
+import { BookDetails } from "@/lib/types/type";
+import { useGetProductsQuery } from "@/store/api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +9,15 @@ import React, { useEffect, useState } from "react";
 
 const NewBooks = () => {
   const [currentBookSlide, setCurrentBookSlide] = useState(0);
+  
+   const { data: apiResponse = {}, isLoading } = useGetProductsQuery({});
+    const [books, setBooks] = useState<BookDetails[]>([]);
+      useEffect(() => {
+      if (apiResponse.success) {
+        setBooks(apiResponse.data);
+      }
+      
+    }, [apiResponse]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -66,12 +76,12 @@ const NewBooks = () => {
                                       className="mb-4 h-[200px] w-full object-cover rounded-md"
                                     />
                                     {calculateDiscount(
-                                      book.price,
+                                      book.price as number,
                                       book.finalPrice,
                                     ) > 0 && (
                                       <span className="absolute left-0 top-2 rounded-r-lg bg-red-500 px-2 text-xs font-medium text-white">
                                         {calculateDiscount(
-                                          book.price,
+                                          book.price as number,
                                           book.finalPrice,
                                         )}
                                         % off
