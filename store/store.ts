@@ -14,33 +14,22 @@ import {
 import useReducer from "./slice/userSlice";
 import cartReducer from "./slice/cartSlice";
 import wishlistReducer from "./slice/wishlistSlice";
+import checkoutReducer from "./slice/checkoutSlice";
 import { api } from "./api";
+
+
 // persist configuration for  user data  save the data in Local storage
-const userPersistConfig = {
-  key: "user",
-  storage,
-  whitelist: ["user", "isEmailVerified", "isLoggedIn"], // only these will be persisted
-};
-
-const cartPersistConfig = {
-  key: "cart",
-  storage,
-  whitelist: ["items"], // only these will be persisted
-};
-
-const wishlistPersistConfig = {
-  key: "wishlist",
-  storage,
-};
+const userPersistConfig = {key: "user",storage,whitelist: ["user", "isEmailVerified", "isLoggedIn"],};
+const cartPersistConfig = {key: "cart",storage,whitelist: ["items"]};
+const wishlistPersistConfig = {key: "wishlist",storage};
+const checkoutPersistConfig = {key: "checkout",storage};
 
 // wrap your reducers with persistConfig
 
 const persistUserReducer = persistReducer(userPersistConfig, useReducer);
 const persistCartReducer = persistReducer(cartPersistConfig, cartReducer);
-const persistWishlistReducer = persistReducer(
-  wishlistPersistConfig,
-  wishlistReducer,
-);
+const persistWishlistReducer = persistReducer(wishlistPersistConfig,wishlistReducer);
+const persistCheckoutReducer = persistReducer(checkoutPersistConfig,checkoutReducer);
 
 export const store = configureStore({
   reducer: {
@@ -48,6 +37,7 @@ export const store = configureStore({
     user: persistUserReducer, // persisted user reducer
     cart: persistCartReducer, // persisted cart reducer
     wishlist: persistWishlistReducer, // persisted wishlist reducer
+    checkout: persistCheckoutReducer, // persisted checkout reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
