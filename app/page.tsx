@@ -263,6 +263,7 @@ export default function Home() {
                       src={post.imageSrc}
                       alt={post.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="transition-transform duration-300 hover:scale-105 object-cover rounded-lg"
                     />
                   </div>

@@ -181,6 +181,7 @@ const Footer = () => {
               alt="Paytm"
               width={50}
               height={30}
+              style={{ width: "auto" }}
             />
             <Image
               src={"/icons/upi.svg"}
