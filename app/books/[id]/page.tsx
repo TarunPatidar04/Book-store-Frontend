@@ -149,7 +149,7 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-muted/30">
       <div className="container mx-auto px-4 py-8">
         <nav className="flex items-center mb-8 gap-2 text-muted-foreground text-sm">
           <Link href="/" className="text-primary hover:underline">
@@ -166,7 +166,7 @@ const page = () => {
         </nav>
         <div className="grid gap-8 md:grid-cols-2">
           <div className="space-y-4">
-            <div className="relative h-[400px] overflow-hidden rounded-lg border bg-white shadow-md">
+            <div className="relative h-[400px] overflow-hidden rounded-lg border bg-card shadow-md">
               <Image
                 src={BookImage[selectedImage]}
                 alt={books.title}
@@ -396,7 +396,7 @@ const page = () => {
             ].map((item, index) => (
               <Card
                 key={index}
-                className="bg-linear-to-br from-amber-50 to-amber-100 border-none"
+                className="bg-linear-to-br from-amber-50 to-amber-100 dark:from-secondary/20 dark:to-secondary/10 border-none"
               >
                 <CardHeader>
                   <Badge className="w-fit mb-2">{item.step}</Badge>

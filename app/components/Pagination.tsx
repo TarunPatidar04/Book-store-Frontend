@@ -28,7 +28,11 @@ const Pagination = ({
             key={page}
             variant={currentPage === page ? "default" : "outline"}
             onClick={() => onPageChange(page)}
-            className={currentPage === page ? "bg-blue-500 text-black" : ""}
+            className={
+              currentPage === page
+                ? "bg-blue-600 dark:bg-blue-500 text-white"
+                : ""
+            }
           >
             {page}
           </Button>

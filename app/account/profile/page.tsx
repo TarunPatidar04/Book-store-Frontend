@@ -62,11 +62,13 @@ const ProfilePage = () => {
   return (
     <div className="space-y-6">
       <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
           <User className="h-6 w-6 text-blue-600" />
           My Profile
         </h1>
-        <p className="text-gray-500 mt-1">Manage your personal information</p>
+        <p className="text-muted-foreground mt-1">
+          Manage your personal information
+        </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 max-w-xl">

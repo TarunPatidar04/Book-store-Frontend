@@ -40,7 +40,7 @@ const CartItems = ({
                 Quantity: {item.quantity}
               </div>
               <div className="mt-1 font-medium">
-                <span className="text-gray-500 line-through mr-2">
+                <span className="text-muted-foreground line-through mr-2">
                   Price: ₹{item.product.price}
                 </span>
                 ₹{item.product.finalPrice}

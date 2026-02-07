@@ -10,8 +10,8 @@ const PaymentSuccessContent = () => {
   const orderId = searchParams.get("orderId");
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center space-y-6 animate-in fade-in zoom-in duration-500">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      <div className="bg-card text-card-foreground p-8 rounded-2xl shadow-xl max-w-md w-full text-center space-y-6 animate-in fade-in zoom-in duration-500">
         <div className="flex justify-center">
           <div className="rounded-full bg-green-100 p-3">
             <CheckCircle2 className="w-16 h-16 text-green-600" />
@@ -19,7 +19,7 @@ const PaymentSuccessContent = () => {
         </div>
 
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-foreground">
             Order Placed Successfully!
           </h1>
           <p className="text-gray-500">
@@ -27,9 +27,9 @@ const PaymentSuccessContent = () => {
           </p>
         </div>
 
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
-          <p className="text-sm text-gray-500 mb-1">Order ID</p>
-          <p className="font-mono font-medium text-gray-900 break-all">
+        <div className="bg-muted/50 p-4 rounded-lg border border-border">
+          <p className="text-sm text-muted-foreground mb-1">Order ID</p>
+          <p className="font-mono font-medium text-foreground break-all">
             {orderId || "N/A"}
           </p>
         </div>

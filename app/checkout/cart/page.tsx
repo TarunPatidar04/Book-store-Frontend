@@ -310,10 +310,10 @@ const page = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-white">
-        <div className="bg-gray-100 py-4 px-6 mb-8">
+      <div className="min-h-screen bg-background">
+        <div className="bg-muted/50 py-4 px-6 mb-8">
           <div className="container mx-auto flex items-center ">
-            <ShoppingCart className="w-6 h-6 mr-2 text-gray-600" />
+            <ShoppingCart className="w-6 h-6 mr-2 text-muted-foreground" />
             <span className="text-lg font-semibold">
               {cart.items.length} {cart.items.length === 1 ? "item" : "items"}{" "}
               in your cart
@@ -326,7 +326,7 @@ const page = () => {
             <div className="flex justify-center items-center gap-4">
               <div className="flex items-center gap-2">
                 <div
-                  className={`rounded-full p-3 ${step === "cart" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                  className={`rounded-full p-3 ${step === "cart" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
                 >
                   <ShoppingCart className="w-6 h-6 " />
                 </div>
@@ -335,7 +335,7 @@ const page = () => {
               <ChevronRight className="text-gray-600" />
               <div className="flex items-center gap-2">
                 <div
-                  className={`rounded-full p-3 ${step === "address" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                  className={`rounded-full p-3 ${step === "address" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
                 >
                   <MapPin className="w-6 h-6 " />
                 </div>
@@ -344,7 +344,7 @@ const page = () => {
               <ChevronRight className="text-gray-600" />
               <div className="flex items-center gap-2">
                 <div
-                  className={`rounded-full p-3 ${step === "payment" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                  className={`rounded-full p-3 ${step === "payment" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}
                 >
                   <CreditCard className="w-6 h-6 " />
                 </div>

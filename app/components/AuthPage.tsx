@@ -263,14 +263,14 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
                     </Button>
                   </form>
                   <div className="flex items-center my-4">
-                    <div className="flex-1 h-px bg-gray-300"></div>
+                    <div className="flex-1 h-px bg-border"></div>
                     <p className="px-2 text-sm text-gray-500">or</p>
-                    <div className="flex-1 h-px bg-gray-300"></div>
+                    <div className="flex-1 h-px bg-border"></div>
                   </div>
                   <Button
                     onClick={handleGoogleLogin}
                     type="button"
-                    className="w-full flex items-center cursor-pointer justify-center gap-2 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 font-bold"
+                    className="w-full flex items-center cursor-pointer justify-center gap-2 bg-background border border-border hover:bg-muted font-bold"
                     disabled={googleLoading}
                   >
                     {googleLoading ? (
@@ -405,13 +405,13 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
                     </Button>
                   </form>
                   <div className="flex items-center my-4">
-                    <div className="flex-1 h-px bg-gray-300"></div>
+                    <div className="flex-1 h-px bg-border"></div>
                     <p className="px-2 text-sm text-gray-500">or</p>
-                    <div className="flex-1 h-px bg-gray-300"></div>
+                    <div className="flex-1 h-px bg-border"></div>
                   </div>
                   <Button
                     type="button"
-                    className="w-full flex items-center cursor-pointer justify-center gap-2 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 font-bold"
+                    className="w-full flex items-center cursor-pointer justify-center gap-2 bg-background border border-border hover:bg-muted font-bold"
                     disabled={googleLoading}
                   >
                     <Image

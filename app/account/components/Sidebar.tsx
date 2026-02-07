@@ -49,9 +49,9 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-full md:w-64 bg-white rounded-lg shadow-md h-fit">
+    <div className="w-full md:w-64 bg-card text-card-foreground rounded-lg shadow-md h-fit">
       <div className="p-4 border-b">
-        <h2 className="text-xl font-semibold text-gray-800">My Account</h2>
+        <h2 className="text-xl font-semibold text-foreground">My Account</h2>
       </div>
       <nav className="p-2">
         <ul className="space-y-1">
@@ -66,7 +66,7 @@ const Sidebar = () => {
                     "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-md transition-colors",
                     isActive
                       ? "bg-blue-50 text-blue-600"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground",
                   )}
                 >
                   <Icon className="w-5 h-5" />
@@ -78,7 +78,7 @@ const Sidebar = () => {
           <li>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
             >
               <LogOut className="w-5 h-5" />
               Logout

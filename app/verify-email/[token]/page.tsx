@@ -74,10 +74,10 @@ const VerifyEmailPage = () => {
         return (
           <div className="flex flex-col items-center justify-center space-y-4 py-8">
             <Loader2 className="h-16 w-16 animate-spin text-primary" />
-            <h2 className="text-xl font-semibold text-gray-700">
+            <h2 className="text-xl font-semibold text-foreground">
               Verifying your email...
             </h2>
-            <p className="text-center text-gray-500 max-w-xs">
+            <p className="text-center text-muted-foreground max-w-xs">
               Please wait while we verify your email address. This won't take
               long.
             </p>
@@ -91,14 +91,14 @@ const VerifyEmailPage = () => {
             className="flex flex-col items-center justify-center space-y-4 py-8"
           >
             <CheckCircle className="h-20 w-20 text-green-500" />
-            <h2 className="text-2xl font-bold text-gray-800">
+            <h2 className="text-2xl font-bold text-foreground">
               Email Verified!
             </h2>
-            <p className="text-center text-gray-600 max-w-sm">
+            <p className="text-center text-muted-foreground max-w-sm">
               Your email has been successfully verified. You now have full
               access to your account.
             </p>
-            <p className="text-sm text-gray-400 mt-4">
+            <p className="text-sm text-muted-foreground mt-4">
               Redirecting to home page...
             </p>
           </motion.div>
@@ -144,8 +144,8 @@ const VerifyEmailPage = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gray-50/50 px-4">
-      <Card className="w-full max-w-md shadow-xl border-t-4 border-t-primary bg-white">
+    <div className="min-h-[80vh] flex items-center justify-center bg-muted/30 px-4">
+      <Card className="w-full max-w-md shadow-xl border-t-4 border-t-primary bg-card">
         <CardContent>{renderContent()}</CardContent>
       </Card>
     </div>

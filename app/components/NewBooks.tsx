@@ -40,7 +40,7 @@ const NewBooks = () => {
     return 0;
   };
   return (
-    <section className="py-16 bg-gray-16">
+    <section className="py-16 bg-muted/20">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-12">
           Newly Added Books
@@ -121,13 +121,13 @@ const NewBooks = () => {
               </div>
               {/* Scroll button */}
               <button
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md"
                 onClick={prevSlide}
               >
                 <ChevronLeft className="h-6 w-6 cursor-pointer" />
               </button>
               <button
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md"
                 onClick={nextSlide}
               >
                 <ChevronRight className="h-6 w-6 cursor-pointer" />
@@ -138,7 +138,9 @@ const NewBooks = () => {
                   <button
                     key={dot}
                     className={`w-3 h-3 rounded-full  ${
-                      currentBookSlide === dot ? "bg-blue-500" : "bg-gray-300"
+                      currentBookSlide === dot
+                        ? "bg-primary"
+                        : "bg-muted-foreground/30"
                     }`}
                     onClick={() => setCurrentBookSlide(dot)}
                   ></button>

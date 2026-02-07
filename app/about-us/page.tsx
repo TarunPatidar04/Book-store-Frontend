@@ -5,7 +5,7 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="relative py-20 bg-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-blue-900/20 z-0"></div>
@@ -28,8 +28,10 @@ const AboutUs = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
-              <p className="text-lg text-gray-600">
+              <h2 className="text-3xl font-bold text-foreground">
+                Our Mission
+              </h2>
+              <p className="text-lg text-muted-foreground">
                 Our mission is to make knowledge accessible and affordable for
                 everyone. We want to create a sustainable cycle of reading by
                 facilitating the easy exchange of pre-loved books.
@@ -40,7 +42,7 @@ const AboutUs = () => {
                 second life and help students and readers save money.
               </p>
             </div>
-            <div className="bg-gray-100 rounded-2xl h-[400px] flex items-center justify-center">
+            <div className="bg-muted rounded-2xl h-[400px] flex items-center justify-center">
               {/* Placeholder for About Us Image */}
               <span className="text-gray-400 font-medium text-lg">
                 About Us Image
@@ -51,7 +53,7 @@ const AboutUs = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -64,7 +66,7 @@ const AboutUs = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-card text-card-foreground p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                 <Shield className="w-6 h-6 text-blue-600" />
               </div>
@@ -75,7 +77,7 @@ const AboutUs = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-card text-card-foreground p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
                 <Users className="w-6 h-6 text-purple-600" />
               </div>
@@ -86,7 +88,7 @@ const AboutUs = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="bg-card text-card-foreground p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
                 <Sparkles className="w-6 h-6 text-green-600" />
               </div>

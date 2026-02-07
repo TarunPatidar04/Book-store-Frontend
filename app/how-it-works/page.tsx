@@ -13,14 +13,14 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-blue-50 py-16">
+      <section className="bg-muted/50 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             How Book Kart Works
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Whether you want to sell your old textbooks or find your next
             favorite read, we make it simple, secure, and fast.
           </p>
@@ -34,7 +34,7 @@ const HowItWorks = () => {
             <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
               For Sellers
             </Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               Sell Your Books in 3 Steps
             </h2>
           </div>
@@ -45,7 +45,7 @@ const HowItWorks = () => {
                 <Upload className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold">1. List Your Book</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Fill in the details about your book, upload clear photos, and
                 set your price. It takes less than 2 minutes!
               </p>
@@ -77,7 +77,7 @@ const HowItWorks = () => {
       </section>
 
       {/* Buying Process */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">
@@ -138,7 +138,7 @@ const HowItWorks = () => {
             </a>
             <a
               href="/book-sell"
-              className="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50"
+              className="px-6 py-3 bg-card border border-border text-foreground rounded-lg font-medium hover:bg-muted"
             >
               Sell a Book
             </a>

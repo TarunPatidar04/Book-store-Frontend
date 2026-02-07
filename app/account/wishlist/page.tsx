@@ -103,11 +103,11 @@ const WishlistPage = () => {
   return (
     <div className="space-y-6">
       <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
           <Heart className="h-6 w-6 text-red-500 fill-red-500" />
           My Wishlist
         </h1>
-        <p className="text-gray-500 mt-1">Your saved books</p>
+        <p className="text-muted-foreground mt-1">Your saved books</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -117,7 +117,7 @@ const WishlistPage = () => {
             className="overflow-hidden hover:shadow-lg transition-shadow group"
           >
             <CardContent className="p-0">
-              <div className="relative h-48 w-full overflow-hidden bg-gray-100">
+              <div className="relative h-48 w-full overflow-hidden bg-muted">
                 <Image
                   src={
                     Array.isArray(product.images) && product.images.length > 0
@@ -130,7 +130,7 @@ const WishlistPage = () => {
                 />
                 <button
                   onClick={() => handleRemove(product._id)}
-                  className="absolute top-2 right-2 p-2 bg-white/80 rounded-full hover:bg-white text-red-500 transition-colors"
+                  className="absolute top-2 right-2 p-2 bg-card/80 rounded-full hover:bg-card text-red-500 transition-colors"
                   title="Remove from wishlist"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -140,9 +140,11 @@ const WishlistPage = () => {
                 <h3 className="font-semibold text-lg line-clamp-1 mb-1">
                   {product.title}
                 </h3>
-                <p className="text-sm text-gray-500 mb-2">{product.author}</p>
+                <p className="text-sm text-muted-foreground mb-2">
+                  {product.author}
+                </p>
                 <div className="flex items-center justify-between mt-2">
-                  <div className="flex items-center font-bold text-lg text-gray-900">
+                  <div className="flex items-center font-bold text-lg text-foreground">
                     <IndianRupee className="w-4 h-4" />
                     {product.finalPrice}
                   </div>

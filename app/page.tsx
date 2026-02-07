@@ -178,7 +178,7 @@ export default function Home() {
       </Button>
 
       {/* How to Sell Section */}
-      <section className="py-16 bg-amber-50">
+      <section className="py-16 bg-amber-50 dark:bg-secondary/20">
         <div className="container mx-auto px-4 ">
           <div className="text-center font-bold mb-4">
             <h2 className="text-3xl mb-4">
@@ -194,7 +194,7 @@ export default function Home() {
             <div className="hidden md:block absolute top-1/2 left-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -z-10 " />
             {sellSteps.map((step, index) => (
               <div className="relative flex flex-col h-full" key={index}>
-                <div className="bg-white rounded-xl p-8 shadow-lg text-center grow flex flex-col">
+                <div className="bg-card text-card-foreground rounded-xl p-8 shadow-lg text-center grow flex flex-col">
                   <div className="absolute top-2 left-14 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
                     {step.step}
                   </div>
@@ -212,7 +212,7 @@ export default function Home() {
         </div>
       </section>
       {/* How to Buy Section */}
-      <section className="py-16 bg-linear-to-b from-gray-50 to-white">
+      <section className="py-16 bg-linear-to-b from-gray-50 to-white dark:from-background dark:to-secondary/10">
         <div className="container mx-auto px-4 ">
           <div className="text-center font-bold mb-4">
             <h2 className="text-3xl mb-4">
@@ -246,7 +246,7 @@ export default function Home() {
         </div>
       </section>
       {/* Blog  post Section */}
-      <section className="py-16 bg-[rgb(221,224,254)]">
+      <section className="py-16 bg-[rgb(221,224,254)] dark:bg-[rgb(30,30,60)]">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Read from our <span className="text-primary">Blog</span>

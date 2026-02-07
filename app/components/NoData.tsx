@@ -17,7 +17,7 @@ const NoData = ({
   buttonText,
 }: NoDataProps) => {
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-white overflow-x-hidden space-y-6">
+    <div className="flex flex-col items-center justify-center p-6 bg-background overflow-x-hidden space-y-6">
       <div className="relative w-60 md:w-80">
         <Image
           src={imageUrl}
@@ -28,10 +28,12 @@ const NoData = ({
         />
       </div>
       <div className="text-center max-w-md space-y-2">
-        <p className="text-2xl font-bold text-gray-900 tracking-wide">
+        <p className="text-2xl font-bold text-foreground tracking-wide">
           {message}
         </p>
-        <p className="text-base text-gray-600 leading-relaxed">{description}</p>
+        <p className="text-base text-muted-foreground leading-relaxed">
+          {description}
+        </p>
       </div>
       {onClick && (
         <button

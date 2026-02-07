@@ -46,25 +46,27 @@ const OrdersPage = () => {
   return (
     <div className="space-y-6">
       <div className="border-b pb-4">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
           <Package className="h-6 w-6 text-blue-600" />
           My Orders
         </h1>
-        <p className="text-gray-500 mt-1">View and track your order history</p>
+        <p className="text-muted-foreground mt-1">
+          View and track your order history
+        </p>
       </div>
 
       <div className="space-y-4">
         {orders.map((order: any) => (
           <Card key={order._id} className="overflow-hidden">
-            <CardHeader className="bg-gray-50 flex flex-row items-center justify-between pb-4">
+            <CardHeader className="bg-muted/50 flex flex-row items-center justify-between pb-4">
               <div className="flex flex-col gap-1">
-                <span className="text-sm text-gray-500">Order ID</span>
+                <span className="text-sm text-muted-foreground">Order ID</span>
                 <span className="font-mono text-xs font-medium">
                   {order._id}
                 </span>
               </div>
               <div className="flex flex-col items-end gap-1">
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-muted-foreground">
                   Total Amount: ₹{order.totalAmount}
                 </span>
                 <Badge
@@ -105,7 +107,7 @@ const OrdersPage = () => {
                       <h4 className="font-medium line-clamp-1">
                         {item.product.title}
                       </h4>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted-foreground">
                         Qty: {item.quantity} × ₹{item.price}
                       </p>
                     </div>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import LayoutWrapper from "./LayoutWrapper";
+import { ThemeProvider } from "./components/theme-provider";
 
 const roboto_mono = Roboto_Mono({
   subsets: ["latin"],
@@ -25,9 +26,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={roboto_mono.className} suppressHydrationWarning={true}>
         <LayoutWrapper>
-          <Header />
-          {children}
-          <Footer />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+            <Footer />
+          </ThemeProvider>
         </LayoutWrapper>
       </body>
     </html>

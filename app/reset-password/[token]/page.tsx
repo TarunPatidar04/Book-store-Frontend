@@ -63,16 +63,16 @@ const page: React.FC = () => {
 
   if (resetPasswordSuccess) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50/50">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
         <Card className="w-full max-w-md shadow-lg border-green-100">
           <CardContent className="pt-10 pb-10 flex flex-col items-center text-center space-y-4">
             <div className="h-16 w-16 bg-green-100 rounded-full flex items-center justify-center mb-2">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h2 className="text-2xl font-bold tracking-tight text-foreground">
               Password Reset Complete
             </h2>
-            <p className="text-gray-500 max-w-xs">
+            <p className="text-muted-foreground max-w-xs">
               Your password has been successfully updated. You can now log in
               with your new password.
             </p>
@@ -91,7 +91,7 @@ const page: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50/50">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-1 text-center">
           <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
@@ -125,7 +125,7 @@ const page: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />

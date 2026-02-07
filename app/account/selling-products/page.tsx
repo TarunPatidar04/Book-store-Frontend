@@ -73,11 +73,13 @@ const SellingProductsPage = () => {
     <div className="space-y-6">
       <div className="border-b pb-4 flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
             <PiggyBank className="h-6 w-6 text-blue-600" />
             My Selling Orders
           </h1>
-          <p className="text-gray-500 mt-1">Manage books you are selling</p>
+          <p className="text-muted-foreground mt-1">
+            Manage books you are selling
+          </p>
         </div>
         <Link href="/book-sell">
           <Button variant="default" className="bg-blue-600 hover:bg-blue-700">
@@ -94,7 +96,7 @@ const SellingProductsPage = () => {
           >
             <CardContent className="p-4">
               <div className="flex gap-4">
-                <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-md border bg-gray-100">
+                <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-md border bg-muted">
                   <Image
                     src={
                       Array.isArray(product.images) && product.images.length > 0
@@ -111,7 +113,9 @@ const SellingProductsPage = () => {
                     <h3 className="font-semibold text-lg line-clamp-1">
                       {product.title}
                     </h3>
-                    <p className="text-sm text-gray-500">{product.author}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {product.author}
+                    </p>
                     <div className="flex items-center mt-1 font-medium text-green-600">
                       <IndianRupee className="w-4 h-4" />
                       {product.finalPrice}

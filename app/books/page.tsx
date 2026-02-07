@@ -142,7 +142,7 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-muted/30">
       <div className="container mx-auto px-4 py-8">
         <nav className="flex items-center mb-8 gap-2 text-muted-foreground text-sm">
           <Link href="/" className="text-primary hover:underline">
@@ -158,7 +158,7 @@ const page = () => {
           <div className="space-y-6">
             <Accordion
               type="multiple"
-              className="bg-white p-6 border rounded-lg"
+              className="bg-card p-6 border rounded-lg"
             >
               {Object.entries(filters).map(([key, values]) => (
                 <AccordionItem value={key} key={key}>
@@ -232,7 +232,7 @@ const page = () => {
                       transition={{ duration: 0.3 }}
                       // className="bg-white p-6 border rounded-lg shadow-md"
                     >
-                      <Card className="group relative overflow-hidden rounded-lg transition-shadow duration-300 hover:shadow-2xl bg-white border-0">
+                      <Card className="group relative overflow-hidden rounded-lg transition-shadow duration-300 hover:shadow-2xl bg-card border-0">
                         <CardContent className="p-0">
                           <Link href={`/books/${book._id}`}>
                             <div className="relative">
@@ -260,7 +260,7 @@ const page = () => {
                               <Button
                                 size={"icon"}
                                 variant={"ghost"}
-                                className="absolute top-2 right-2 h-8 w-8 rounded-full bg-white/80 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 hover:bg-white"
+                                className="absolute top-2 right-2 h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 hover:bg-background"
                               >
                                 <Heart className="h-4 w-4 text-red-500" />
                               </Button>
@@ -276,7 +276,7 @@ const page = () => {
                               </p>
 
                               <div className="flex items-baseline gap-2">
-                                <span className="text-2xl text-black font-bold">
+                                <span className="text-2xl text-foreground font-bold">
                                   ₹{book.finalPrice}
                                 </span>
                                 {book.price && (

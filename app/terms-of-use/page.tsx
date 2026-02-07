@@ -3,10 +3,10 @@ import React from "react";
 
 const TermsOfUse = () => {
   return (
-    <div className="min-h-screen bg-gray-100 py-16">
+    <div className="min-h-screen bg-background py-16">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-8">Terms of Use</h1>
-        <p className="text-gray-600 mb-4">
+        <p className="text-muted-foreground mb-4">
           Welcome to BookKart! These terms and conditions outline the rules and
           regulations for the use of our website.
         </p>

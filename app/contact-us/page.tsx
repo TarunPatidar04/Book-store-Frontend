@@ -13,11 +13,13 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Contact Us
+          </h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Have questions about buying or selling books? We're here to help!
             Reach out to us through any of the following channels.
           </p>
@@ -26,7 +28,7 @@ const ContactUs = () => {
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm">
+            <div className="bg-card text-card-foreground p-8 rounded-2xl shadow-sm">
               <h2 className="text-2xl font-semibold mb-6">Get in Touch</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -69,7 +71,7 @@ const ContactUs = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-2xl shadow-sm">
+          <div className="bg-card text-card-foreground p-8 rounded-2xl shadow-sm">
             <h2 className="text-2xl font-semibold mb-6">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">

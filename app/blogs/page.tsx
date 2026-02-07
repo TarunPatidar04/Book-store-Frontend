@@ -77,11 +77,11 @@ const BlogsPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-muted/30 py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Blog</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-4xl font-bold text-foreground mb-4">Our Blog</h1>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Insights, tips, and stories for book lovers.
           </p>
         </div>
@@ -92,9 +92,9 @@ const BlogsPage = () => {
               key={blog.id}
               className="overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
             >
-              <div className="relative h-48 bg-gray-200">
+              <div className="relative h-48 bg-muted">
                 {/* Placeholder for image - using grayscale div for now if image fails */}
-                <div className="absolute inset-0 flex items-center justify-center text-gray-400 bg-gray-200">
+                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/50 bg-muted">
                   <span className="text-lg font-medium">Blog Image</span>
                 </div>
                 {/* <Image
@@ -106,7 +106,7 @@ const BlogsPage = () => {
                 <div className="absolute top-4 left-4">
                   <Badge
                     variant="secondary"
-                    className="bg-white/90 hover:bg-white text-black"
+                    className="bg-card/90 hover:bg-card text-card-foreground"
                   >
                     {blog.category}
                   </Badge>
@@ -116,7 +116,7 @@ const BlogsPage = () => {
                 <h3 className="text-xl font-bold mb-2 line-clamp-2 hover:text-blue-600 transition-colors cursor-pointer">
                   {blog.title}
                 </h3>
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                   <div className="flex items-center gap-1">
                     <User className="w-4 h-4" />
                     {blog.author}
@@ -126,7 +126,9 @@ const BlogsPage = () => {
                     {blog.date}
                   </div>
                 </div>
-                <p className="text-gray-600 line-clamp-3">{blog.excerpt}</p>
+                <p className="text-muted-foreground line-clamp-3">
+                  {blog.excerpt}
+                </p>
               </CardHeader>
               <CardFooter className="pt-0">
                 <Button variant="outline" className="w-full">

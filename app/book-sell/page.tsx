@@ -155,13 +155,13 @@ const page = () => {
     );
   }
   return (
-    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white py-12">
+    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white dark:from-background dark:to-background py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="mb-10 text-center">
           <h1 className="text-4xl font-bold mb-4 text-blue-600">
             Sell Your Used Books
           </h1>
-          <p className="text-xl text-gray-600 mb-4">
+          <p className="text-xl text-muted-foreground mb-4">
             submit free classified add to sell your used book for cash in India
           </p>
           <Link
@@ -174,8 +174,8 @@ const page = () => {
         </div>
         <form action="" onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <Card className="shadow-lg border-t-4 border-t-blue-500">
-            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50">
-              <CardTitle className="text-2xl flex items-center text-blue-700">
+            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50 dark:from-blue-900/20 dark:to-blue-900/20">
+              <CardTitle className="text-2xl flex items-center text-blue-700 dark:text-blue-400">
                 <Book className="mr-2 h-6 w-6" />
                 Book Details
               </CardTitle>
@@ -184,7 +184,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="title"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   Ad Title
                 </Label>
@@ -206,7 +206,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="category"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   Book Type
                 </Label>
@@ -246,7 +246,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="category"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   Book Condition
                 </Label>
@@ -291,7 +291,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="classType"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   For Class
                 </Label>
@@ -331,7 +331,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="subject"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   Book Subject
                 </Label>
@@ -352,15 +352,15 @@ const page = () => {
               </div>
 
               <div className="space-y-2">
-                <Label className=" block mb-2 font-medium text-gray-700">
+                <Label className=" block mb-2 font-medium text-foreground">
                   Upload Photos
                 </Label>
-                <div className="border-2 border-dashed border-blue-300 p-4 rounded-lg bg-blue-50">
+                <div className="border-2 border-dashed border-blue-300 p-4 rounded-lg bg-blue-50 dark:bg-blue-900/10">
                   <div className="flex flex-col items-center gap-2">
                     <Camera className="w-8 h-8 text-blue-500" />
                     <Label
                       htmlFor="images"
-                      className=" cursor-pointer font-medium text-blue-700 hover:underline"
+                      className=" cursor-pointer font-medium text-blue-700 dark:text-blue-400 hover:underline"
                     >
                       click here to upload up to 4 images (size:15MB max,each)
                     </Label>
@@ -402,8 +402,8 @@ const page = () => {
 
           {/* OPTIONAL DETAILS */}
           <Card className="shadow-lg border-t-4 border-t-green-500">
-            <CardHeader className="bg-linear-to-r from-green-50 to-emerald-50">
-              <CardTitle className="text-2xl text-green-700 flex items-center">
+            <CardHeader className="bg-linear-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20">
+              <CardTitle className="text-2xl text-green-700 dark:text-green-400 flex items-center">
                 <HelpCircle className="mr-2 h-6 w-6" />
                 Optional Details
               </CardTitle>
@@ -418,7 +418,7 @@ const page = () => {
                       <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                         <Label
                           htmlFor="price"
-                          className="md:w-1/4 font-medium text-gray-700"
+                          className="md:w-1/4 font-medium text-foreground"
                         >
                           MRP
                         </Label>
@@ -439,7 +439,7 @@ const page = () => {
                       <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                         <Label
                           htmlFor="author"
-                          className="md:w-1/4 font-medium text-gray-700"
+                          className="md:w-1/4 font-medium text-foreground"
                         >
                           Author
                         </Label>
@@ -455,7 +455,7 @@ const page = () => {
                       <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                         <Label
                           htmlFor="edition"
-                          className="md:w-1/4 font-medium text-gray-700"
+                          className="md:w-1/4 font-medium text-foreground"
                         >
                           Edition (year)
                         </Label>
@@ -478,7 +478,7 @@ const page = () => {
                       <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                         <Label
                           htmlFor="description"
-                          className="md:w-1/4 font-medium text-gray-700"
+                          className="md:w-1/4 font-medium text-foreground"
                         >
                           Description
                         </Label>
@@ -500,8 +500,8 @@ const page = () => {
 
           {/* PRICE DETAILS */}
           <Card className="shadow-lg border-t-4 border-t-yellow-500">
-            <CardHeader className="bg-linear-to-r from-yellow-50 to-amber-50">
-              <CardTitle className="text-2xl flex items-center text-yellow-700">
+            <CardHeader className="bg-linear-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20">
+              <CardTitle className="text-2xl flex items-center text-yellow-700 dark:text-yellow-400">
                 <DollarSign className="mr-2 h-6 w-6" />
                 Price Details
               </CardTitle>
@@ -510,7 +510,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="title"
-                  className="md:w-1/4 font-medium text-gray-700"
+                  className="md:w-1/4 font-medium text-foreground"
                 >
                   Your Price (in Rs.)
                 </Label>
@@ -533,7 +533,7 @@ const page = () => {
               <div className="flex flex-col md:flex-row md:items-start space-y-2 md:space-y-0 md:space-x-4">
                 <Label
                   htmlFor="category"
-                  className="md:w-1/4  mt-2 font-medium text-gray-700"
+                  className="md:w-1/4  mt-2 font-medium text-foreground"
                 >
                   Shipping Charges
                 </Label>
@@ -582,15 +582,15 @@ const page = () => {
 
           {/* BANK DETAILS */}
           <Card className="shadow-lg border-t-4 border-t-blue-500">
-            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50">
-              <CardTitle className="text-2xl flex items-center text-yellow-700">
+            <CardHeader className="bg-linear-to-r from-blue-50 to-blue-50 dark:from-blue-900/20 dark:to-blue-900/20">
+              <CardTitle className="text-2xl flex items-center text-yellow-700 dark:text-yellow-400">
                 <CreditCard className="mr-2 h-6 w-6" />
                 Bank Details
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6 pt-6">
               <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
-                <Label className="md:w-1/4 font-medium text-gray-700">
+                <Label className="md:w-1/4 font-medium text-foreground">
                   Payment Mode
                 </Label>
                 <div className="md:w-3/4 space-y-2">
@@ -651,7 +651,7 @@ const page = () => {
                 <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                   <Label
                     htmlFor="upiId"
-                    className="md:w-1/4 font-medium text-gray-700"
+                    className="md:w-1/4 font-medium text-foreground"
                   >
                     UPI ID
                   </Label>
@@ -681,7 +681,7 @@ const page = () => {
                   <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                     <Label
                       htmlFor="accountNumber"
-                      className="md:w-1/4 font-medium text-gray-700"
+                      className="md:w-1/4 font-medium text-foreground"
                     >
                       Account Number
                     </Label>
@@ -714,7 +714,7 @@ const page = () => {
                   <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                     <Label
                       htmlFor="ifscCode"
-                      className="md:w-1/4 font-medium text-gray-700"
+                      className="md:w-1/4 font-medium text-foreground"
                     >
                       Ifsc Code
                     </Label>
@@ -741,7 +741,7 @@ const page = () => {
                   <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-4">
                     <Label
                       htmlFor="bank Name"
-                      className="md:w-1/4 font-medium text-gray-700"
+                      className="md:w-1/4 font-medium text-foreground"
                     >
                       Bank Name
                     </Label>
@@ -778,7 +778,7 @@ const page = () => {
               "Post Your Book"
             )}
           </Button>
-          <p className="text-sm text-center text-gray-500">
+          <p className="text-sm text-center text-muted-foreground">
             By clicking Post Your Book, you agree to our{" "}
             <a href="/terms-of-use" target="_blank" className="text-blue-500">
               Terms of Service

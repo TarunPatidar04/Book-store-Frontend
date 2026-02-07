@@ -121,7 +121,7 @@ const CheckoutAddress = ({
           {addressess.map((address: Address) => (
             <>
               <Card
-                className={`relative overflow-hidden rounded-lg border transition-all duration-300 ${selectedAddressId === address._id ? "border-blue-500 shadow-lg" : "border-gray-200 hover:border-blue-300 hover:shadow-lg shadow-md"}`}
+                className={`relative overflow-hidden rounded-lg border transition-all duration-300 ${selectedAddressId === address._id ? "border-blue-500 shadow-lg" : "border-border hover:border-blue-300 hover:shadow-lg shadow-md"}`}
                 key={address._id}
               >
                 <CardContent className="p-6 space-y-4">
@@ -137,12 +137,12 @@ const CheckoutAddress = ({
                         variant={"ghost"}
                         onClick={() => handleEditAddress(address)}
                       >
-                        <Pencil className="h-5 w-5 text-gray-600 hover:text-blue-500" />
+                        <Pencil className="h-5 w-5 text-muted-foreground hover:text-blue-500" />
                       </Button>
                     </div>
                   </div>
 
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-muted-foreground">
                     <p>{address?.addressLine1}</p>
                     {address?.addressLine2 && <p>{address?.addressLine2}</p>}
                     <p>
@@ -212,7 +212,7 @@ const CheckoutAddress = ({
                       <FormItem>
                         <FormLabel>
                           Address Line 2{" "}
-                          <span className="text-gray-500 text-xs font-normal ml-1">
+                          <span className="text-muted-foreground text-xs font-normal ml-1">
                             (Optional)
                           </span>
                         </FormLabel>

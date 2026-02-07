@@ -43,6 +43,7 @@ import AuthPage from "./AuthPage";
 import { useGetCartQuery, useLogoutMutation } from "@/store/api";
 import toast from "react-hot-toast";
 import { setCart } from "@/store/slice/cartSlice";
+import { ModeToggle } from "./mode-toggle";
 
 const Header = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -197,7 +198,7 @@ const Header = () => {
           <Link
             key={index}
             href={item.href}
-            className="flex item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-gray-200"
+            className="flex item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-muted"
             onClick={() => setIsDropDownOpen(false)}
           >
             {item.icon}
@@ -208,7 +209,7 @@ const Header = () => {
         ) : (
           <button
             key={index}
-            className="flex w-full item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-gray-200"
+            className="flex w-full item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-muted"
             onClick={item?.onclick}
           >
             {item?.icon}
@@ -220,7 +221,7 @@ const Header = () => {
     </div>
   );
   return (
-    <header className="border-b bg-white sticky top-0 z-50 text-gray-900">
+    <header className="border-b bg-background sticky top-0 z-50 text-foreground">
       {/* DeskTop Header */}
       <div className="container w-[80%] mx-auto hidden lg:flex items-center justify-between p-4">
         <Link href="/" className="flex items-center">
@@ -292,6 +293,7 @@ const Header = () => {
               )}
             </div>
           </Link>
+          <ModeToggle />
         </div>
       </div>
 
@@ -359,6 +361,7 @@ const Header = () => {
             )}
           </div>
         </Link>
+        <ModeToggle />
       </div>
       <AuthPage
         isLogginOpen={isLoginOpen ?? false}
