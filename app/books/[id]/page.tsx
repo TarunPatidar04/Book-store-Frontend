@@ -396,7 +396,10 @@ const page = () => {
                 image: { src: "/icons/fast-delivery.png", alt: "Shipping" },
               },
             ].map((item, index) => (
-              <Card className="bg-linear-to-br from-amber-50 to-amber-100 border-none">
+              <Card
+                key={index}
+                className="bg-linear-to-br from-amber-50 to-amber-100 border-none"
+              >
                 <CardHeader>
                   <Badge className="w-fit mb-2">{item.step}</Badge>
                   <CardTitle className="text-lg">{item.title}</CardTitle>
