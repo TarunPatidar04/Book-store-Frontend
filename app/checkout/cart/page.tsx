@@ -18,6 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import BookLoader from "@/lib/BookLoader";
 import { Address } from "@/lib/types/type";
 import {
   useAddToWishlistMutation,
@@ -28,19 +29,30 @@ import {
   useRemoveFromCartMutation,
   useRemoveFromWishlistMutation,
 } from "@/store/api";
-import { setCart } from "@/store/slice/cartSlice";
-import { setCheckoutStep, setOrderId } from "@/store/slice/checkoutSlice";
+import { clearCart, setCart } from "@/store/slice/cartSlice";
+import {
+  resetCheckout,
+  setCheckoutStep,
+  setOrderId,
+} from "@/store/slice/checkoutSlice";
 import { toggleLoginDialog } from "@/store/slice/userSlice";
 import {
   addWishlistAction,
   removeWishlistAction,
 } from "@/store/slice/wishlistSlice";
 import { RootState } from "@/store/store";
+import { set } from "date-fns";
 import { ChevronRight, CreditCard, MapPin, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 const page = () => {
   const router = useRouter();
@@ -63,7 +75,7 @@ const page = () => {
   const { data: orderData, isLoading: isOrderLoading } = useGetOrdersByIdQuery(
     orderId || "",
   );
-  const [createRazorPaypayment] = useCreateRazorpayPaymentMutation();
+  const [createRazorPayPayment] = useCreateRazorpayPaymentMutation();
   const [selectedAddress, SetSelectedAddress] = useState<Address | null>(null);
 
   useEffect(() => {
@@ -201,7 +213,71 @@ const page = () => {
     }
   };
 
-  const handlePayment = async () => {};
+  const handlePayment = async () => {
+    if (!orderId) {
+      toast.error("Order not found");
+      return;
+    }
+    setIsProcessing(true);
+    try {
+      const { data, error } = await createRazorPayPayment({
+        orderId,
+      }).unwrap();
+      if (error) {
+        throw new Error(error.message || "Failed to create razorpay payment");
+      }
+
+      const razorpayOrder = data.data.order;
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: razorpayOrder.amount,
+        currency: razorpayOrder.currency,
+        name: "Book Kart",
+        description: "Book Kart Payment",
+        // image: "/images/logo.png",
+        order_id: razorpayOrder.id,
+        handler: async function (response: any) {
+          try {
+            const result = await createOrUpdateOrderMutation({
+              orderId,
+              paymentDetails: {
+                razorpay_order_id: razorpayOrder.id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              },
+            }).unwrap();
+            if (result.success) {
+              dispatch(clearCart());
+              dispatch(resetCheckout());
+              toast.success("Payment successful");
+              router.push(`/checkout/payment-success?orderId=${orderId}`);
+            } else {
+              throw new Error(result.message);
+            }
+          } catch (error: any) {
+            console.log(error?.data?.message);
+            toast.error(error?.data?.message || "Failed to verify payment");
+          }
+        },
+        prefill: {
+          name: orderData?.data?.user?.name,
+          email: orderData?.data?.user?.email,
+          contact: orderData?.data?.user?.phoneNumber,
+        },
+
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error: any) {
+      console.log(error?.data?.message);
+      toast.error(error?.data?.message || "Failed to place order");
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   if (!user) {
     return (
@@ -226,6 +302,10 @@ const page = () => {
         onClick={() => router.push("/books")}
       />
     );
+  }
+
+  if (isCartLoading && isOrderLoading) {
+    return <BookLoader />;
   }
 
   return (
