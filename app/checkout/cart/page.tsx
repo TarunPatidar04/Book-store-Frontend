@@ -209,7 +209,7 @@ const page = () => {
     }
   };
 
-  const handlePayment = async () => {
+  const handlePaymentt = async () => {
     if (!orderId) {
       toast.error("Order not found");
       return;
@@ -271,6 +271,12 @@ const page = () => {
     } finally {
       setIsProcessing(false);
     }
+  };
+  const handlePayment = () => {
+    dispatch(clearCart());
+    dispatch(resetCheckout());
+    toast.success("Order Placed Successfully");
+    router.push(`/checkout/payment-success?orderId=${orderId}`);
   };
 
   if (!user) {
