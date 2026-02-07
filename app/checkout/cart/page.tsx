@@ -1,19 +1,34 @@
 "use client";
+import CartItems from "@/app/components/CartItems";
 import NoData from "@/app/components/NoData";
+import PriceDetails from "@/app/components/PriceDetails";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Address } from "@/lib/types/type";
 import {
   useAddToWishlistMutation,
+  useCreateOrUpdateOrderMutation,
+  useCreateRazorpayPaymentMutation,
   useGetCartQuery,
+  useGetOrdersByIdQuery,
   useRemoveFromCartMutation,
   useRemoveFromWishlistMutation,
 } from "@/store/api";
 import { setCart } from "@/store/slice/cartSlice";
+import { setCheckoutStep, setOrderId } from "@/store/slice/checkoutSlice";
 import { toggleLoginDialog } from "@/store/slice/userSlice";
 import {
   addWishlistAction,
   removeWishlistAction,
 } from "@/store/slice/wishlistSlice";
 import { RootState } from "@/store/store";
-import { useRouter } from "next/router";
+import { ChevronRight, CreditCard, MapPin, ShoppingCart } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +50,24 @@ const page = () => {
   const [removeCartMutation] = useRemoveFromCartMutation();
   const [addToWishlistMutation] = useAddToWishlistMutation();
   const [removeWishlistMutation] = useRemoveFromWishlistMutation();
+  const [createOrUpdateOrderMutation] = useCreateOrUpdateOrderMutation();
+  const { data: orderData, isLoading: isOrderLoading } = useGetOrdersByIdQuery(
+    orderId || "",
+  );
+  const [createRazorPaypayment] = useCreateRazorpayPaymentMutation();
+  const [selectedAddress, SetSelectedAddress] = useState<Address | null>(null);
+
+  useEffect(() => {
+    if (orderData && orderData.shippingAddress) {
+      SetSelectedAddress(orderData.shippingAddress);
+    }
+  }, [orderData]);
+
+  useEffect(() => {
+    if (step === "address" && !selectedAddress) {
+      setShowAddressDialog(true);
+    }
+  }, [step, selectedAddress]);
 
   useEffect(() => {
     if (cartData?.success && cartData?.data) {
@@ -91,6 +124,74 @@ const page = () => {
     dispatch(toggleLoginDialog());
   };
 
+  const totalAmount = cart.items.reduce(
+    (acc, item) => acc + item.product.finalPrice * item.quantity,
+    0,
+  );
+
+  const totalOriginalAmount = cart.items.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0,
+  );
+
+  const totalDiscount = totalOriginalAmount - totalAmount;
+
+  const shippingCharge = cart.items.map((item) =>
+    item.product.shippingCharge.toLowerCase() === "free"
+      ? 0
+      : parseFloat(item.product.shippingCharge) || 0,
+  );
+
+  const maximumShippingCharge = Math.max(...shippingCharge, 0);
+
+  const finalAmount = totalAmount + maximumShippingCharge;
+
+  const handleProceedToCheckOut = async () => {
+    if (step === "cart") {
+      try {
+        const result = await createOrUpdateOrderMutation({
+          data: { items: cart.items, totalAmount: totalAmount },
+        }).unwrap();
+        if (result.success) {
+          toast.success("order created successfully");
+          dispatch(setOrderId(result.data._id));
+          dispatch(setCheckoutStep("address"));
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (error: any) {
+        console.log(error?.data?.message);
+        toast.error(error?.data?.message || "Failed to process to checkout");
+      }
+    } else if (step === "address") {
+      if (selectedAddress) {
+        dispatch(setCheckoutStep("payment"));
+      } else {
+        setShowAddressDialog(true);
+      }
+    } else if (step === "payment") {
+      handlePayment();
+    }
+  };
+
+  const handleSelectAddress = async (address: Address) => {
+    SetSelectedAddress(address);
+    setShowAddressDialog(false);
+    if (orderId) {
+      try {
+        await createOrUpdateOrderMutation({
+          updates: { orderId, shippingAddress: address },
+        }).unwrap();
+        toast.success("Address update Successfully");
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to update Address");
+      }
+    }
+  };
+
+  const handlePayment = async () => {};
+
   if (!user) {
     return (
       <NoData
@@ -116,7 +217,92 @@ const page = () => {
     );
   }
 
-  return <div></div>;
+  return (
+    <>
+      <div className="min-h-screen bg-white">
+        <div className="bg-gray-100 py-4 px-6 mb-8">
+          <div className="container mx-auto flex items-center ">
+            <ShoppingCart className="w-6 h-6 mr-2 text-gray-600" />
+            <span className="text-lg font-semibold">
+              {cart.items.length} {cart.items.length === 1 ? "item" : "items"}{" "}
+              in your cart
+            </span>
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="mb-8">
+            <div className="flex justify-center items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div
+                  className={`rounded-full p-3 ${step === "cart" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                >
+                  <ShoppingCart className="w-6 h-6 " />
+                </div>
+                <span className="font-medium md:inline hidden">Cart</span>
+              </div>
+              <ChevronRight className="text-gray-600" />
+              <div className="flex items-center gap-2">
+                <div
+                  className={`rounded-full p-3 ${step === "address" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                >
+                  <MapPin className="w-6 h-6 " />
+                </div>
+                <span className="font-medium md:inline hidden">Address</span>
+              </div>
+              <ChevronRight className="text-gray-600" />
+              <div className="flex items-center gap-2">
+                <div
+                  className={`rounded-full p-3 ${step === "payment" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-600"}`}
+                >
+                  <CreditCard className="w-6 h-6 " />
+                </div>
+                <span className="font-medium md:inline hidden">Payment</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-8 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <Card className="shadow-lg">
+                <CardHeader className="border-b">
+                  <CardTitle className="text-2xl">Order Summery</CardTitle>
+                  <CardDescription>
+                    Review your order before proceeding to checkout.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <CartItems
+                    items={cart.items}
+                    onRemoveItem={handleRemoveItem}
+                    onToggleWishlist={handleAddToWishlist}
+                    wishlist={wishlist}
+                  />
+                </CardContent>
+              </Card>
+            </div>
+            <div>
+              <PriceDetails
+                totalOriginalAmount={totalOriginalAmount}
+                totalAmount={finalAmount}
+                shippingCharge={maximumShippingCharge}
+                totalDiscount={totalDiscount}
+                itemCount={cart.items.length}
+                isProcessing={isProcessing}
+                step={step}
+                onProceed={handleProceedToCheckOut}
+                onBack={() =>
+                  dispatch(
+                    setCheckoutStep(step === "address" ? "cart" : "address"),
+                  )
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default page;
