@@ -56,10 +56,10 @@ const AboutUs = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               Why Choose Us?
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto">
               We are committed to providing the best experience for our
               community.
             </p>
@@ -71,7 +71,7 @@ const AboutUs = () => {
                 <Shield className="w-6 h-6 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold mb-3">Trust & Security</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Every seller is verified, and payments are secure. We ensure a
                 safe environment for all transactions.
               </p>
@@ -82,7 +82,7 @@ const AboutUs = () => {
                 <Users className="w-6 h-6 text-purple-600" />
               </div>
               <h3 className="text-xl font-bold mb-3">Community First</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 We're building a community of readers. Join thousands of
                 students and book enthusiasts across India.
               </p>
@@ -93,7 +93,7 @@ const AboutUs = () => {
                 <Sparkles className="w-6 h-6 text-green-600" />
               </div>
               <h3 className="text-xl font-bold mb-3">Sustainability</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 By choosing used books, you're reducing waste and contributing
                 to a greener planet.
               </p>

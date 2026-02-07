@@ -56,7 +56,7 @@ const HowItWorks = () => {
                 <Truck className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold">2. Ship It</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Once you get an order, pack the book securely and ship it to the
                 buyer using our shipping partners.
               </p>
@@ -67,7 +67,7 @@ const HowItWorks = () => {
                 <DollarSign className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold">3. Get Paid</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Receive secure payment directly to your bank account or UPI once
                 the buyer receives existing book.
               </p>
@@ -83,7 +83,7 @@ const HowItWorks = () => {
             <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">
               For Buyers
             </Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               Buy Books Easily
             </h2>
           </div>
@@ -94,7 +94,7 @@ const HowItWorks = () => {
                 <Search className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold">1. Browse & Search</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Search through thousands of used books by category, author, or
                 subject to find what you need.
               </p>
@@ -105,7 +105,7 @@ const HowItWorks = () => {
                 <ShoppingCart className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold">2. Secure Checkout</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Add to cart and pay securely using our trusted payment gateway.
                 Your money is safe with us.
               </p>
@@ -116,7 +116,7 @@ const HowItWorks = () => {
                 <BookOpen className="w-8 h-8 text-green-600" />
               </div>
               <h3 className="text-xl font-semibold">3. Doorstep Delivery</h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Sit back and relax while we deliver your books right to your
                 doorstep, hassle-free.
               </p>

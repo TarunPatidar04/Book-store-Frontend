@@ -36,9 +36,11 @@ const ContactUs = () => {
                     <Mail className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">Email</h3>
-                    <p className="text-gray-600">support@bookkart.com</p>
-                    <p className="text-gray-600">info@bookkart.com</p>
+                    <h3 className="font-medium text-foreground">Email</h3>
+                    <p className="text-muted-foreground">
+                      support@bookkart.com
+                    </p>
+                    <p className="text-muted-foreground">info@bookkart.com</p>
                   </div>
                 </div>
 
@@ -47,9 +49,11 @@ const ContactUs = () => {
                     <Phone className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">Phone</h3>
-                    <p className="text-gray-600">+91 12345 67890</p>
-                    <p className="text-gray-600">Mon - Fri, 9am - 6pm</p>
+                    <h3 className="font-medium text-foreground">Phone</h3>
+                    <p className="text-muted-foreground">+91 12345 67890</p>
+                    <p className="text-muted-foreground">
+                      Mon - Fri, 9am - 6pm
+                    </p>
                   </div>
                 </div>
 
@@ -58,8 +62,8 @@ const ContactUs = () => {
                     <MapPin className="w-6 h-6 text-purple-600" />
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">Office</h3>
-                    <p className="text-gray-600">
+                    <h3 className="font-medium text-foreground">Office</h3>
+                    <p className="text-muted-foreground">
                       123 Book Street, Knowledge Park
                       <br />
                       Indore, Madhya Pradesh 452001
@@ -78,7 +82,7 @@ const ContactUs = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="name"
-                    className="text-sm font-medium text-gray-700"
+                    className="text-sm font-medium text-foreground"
                   >
                     Your Name
                   </label>
@@ -103,7 +107,7 @@ const ContactUs = () => {
               <div className="space-y-2">
                 <label
                   htmlFor="subject"
-                  className="text-sm font-medium text-gray-700"
+                  className="text-sm font-medium text-foreground"
                 >
                   Subject
                 </label>
@@ -113,7 +117,7 @@ const ContactUs = () => {
               <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="text-sm font-medium text-gray-700"
+                  className="text-sm font-medium text-foreground"
                 >
                   Message
                 </label>

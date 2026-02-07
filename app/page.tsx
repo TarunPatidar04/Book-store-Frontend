@@ -202,7 +202,7 @@ export default function Home() {
                     {step.icon}
                   </div>
                   <h3 className="font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600 text-sm grow">
+                  <p className="text-muted-foreground text-sm grow">
                     {step.description}
                   </p>
                 </div>
