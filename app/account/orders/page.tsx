@@ -87,7 +87,7 @@ const OrdersPage = () => {
                     key={item.product._id}
                     className="flex items-center gap-4 border-b last:border-0 pb-4 last:pb-0"
                   >
-                    <div className="h-16 w-16 relative flex-shrink-0 overflow-hidden rounded-md border">
+                    <div className="h-16 w-16 relative shrink-0 overflow-hidden rounded-md border">
                       {/* Handle potential multiple images or single string */}
                       <Image
                         src={

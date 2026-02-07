@@ -9,15 +9,14 @@ import React, { useEffect, useState } from "react";
 
 const NewBooks = () => {
   const [currentBookSlide, setCurrentBookSlide] = useState(0);
-  
-   const { data: apiResponse = {}, isLoading } = useGetProductsQuery({});
-    const [books, setBooks] = useState<BookDetails[]>([]);
-      useEffect(() => {
-      if (apiResponse.success) {
-        setBooks(apiResponse.data);
-      }
-      
-    }, [apiResponse]);
+
+  const { data: apiResponse = {}, isLoading } = useGetProductsQuery({});
+  const [books, setBooks] = useState<BookDetails[]>([]);
+  useEffect(() => {
+    if (apiResponse.success) {
+      setBooks(apiResponse.data);
+    }
+  }, [apiResponse]);
 
   // useEffect(() => {
   //   const timer = setInterval(() => {
@@ -64,7 +63,7 @@ const NewBooks = () => {
                           .map((book) => (
                             <Card key={book._id} className="relative">
                               <CardContent className="p-4">
-                                <Link href={`book/${book._id}`}>
+                                <Link href={`books/${book._id}`}>
                                   <div className="relative ">
                                     <Image
                                       src={

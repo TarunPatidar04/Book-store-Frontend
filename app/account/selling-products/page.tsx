@@ -94,7 +94,7 @@ const SellingProductsPage = () => {
           >
             <CardContent className="p-4">
               <div className="flex gap-4">
-                <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-md border bg-gray-100">
+                <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-md border bg-gray-100">
                   <Image
                     src={
                       Array.isArray(product.images) && product.images.length > 0
