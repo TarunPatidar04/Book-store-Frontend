@@ -160,7 +160,7 @@ const page = () => {
       try {
         const result = await createOrUpdateOrderMutation({
           items: cart.items,
-          totalAmount: totalAmount,
+          totalAmount: finalAmount,
         }).unwrap();
         if (result.success) {
           toast.success("order created successfully");
