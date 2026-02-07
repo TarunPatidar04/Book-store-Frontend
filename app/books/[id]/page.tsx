@@ -191,7 +191,7 @@ const page = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition-all duration-200 ${
+                  className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border transition-all duration-200 cursor-pointer ${
                     selectedImage === index
                       ? "ring-2 ring-primary scale-105"
                       : "hover:scale-105"

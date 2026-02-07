@@ -209,7 +209,7 @@ const Header = () => {
         ) : (
           <button
             key={index}
-            className="flex w-full item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-muted"
+            className="flex w-full item-center gap-3 px-4 py-3 text-sm rounded-lg hover:bg-muted cursor-pointer"
             onClick={item?.onclick}
           >
             {item?.icon}

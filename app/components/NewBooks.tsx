@@ -121,13 +121,13 @@ const NewBooks = () => {
               </div>
               {/* Scroll button */}
               <button
-                className="absolute left-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md"
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md cursor-pointer"
                 onClick={prevSlide}
               >
                 <ChevronLeft className="h-6 w-6 cursor-pointer" />
               </button>
               <button
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-card text-card-foreground p-2 rounded-full shadow-md cursor-pointer"
                 onClick={nextSlide}
               >
                 <ChevronRight className="h-6 w-6 cursor-pointer" />
@@ -137,7 +137,7 @@ const NewBooks = () => {
                 {[0, 1, 2].map((dot) => (
                   <button
                     key={dot}
-                    className={`w-3 h-3 rounded-full  ${
+                    className={`w-3 h-3 rounded-full cursor-pointer ${
                       currentBookSlide === dot
                         ? "bg-primary"
                         : "bg-muted-foreground/30"
