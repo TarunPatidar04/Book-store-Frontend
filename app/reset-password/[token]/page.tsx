@@ -57,7 +57,6 @@ const page: React.FC = () => {
       setResetPasswordSuccess(true);
       toast.success("Password reset successfully");
     } catch (error) {
-      console.log(error);
       toast.error("Failed to reset password");
     }
   };

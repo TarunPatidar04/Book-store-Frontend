@@ -27,7 +27,7 @@ import { motion } from "framer-motion";
 
 const VerifyEmailPage = () => {
   const { token } = useParams<{ token: string }>();
-  console.log(token);
+
   const dispatch = useDispatch();
   const [verifyEmail] = useVerifyEmailMutation();
   const isVerifiedEmail = useSelector(
@@ -59,7 +59,6 @@ const VerifyEmailPage = () => {
           throw new Error(result.message || "Failed to verify email");
         }
       } catch (error) {
-        console.log(error);
         setVarificationStatus("failed");
       }
     };

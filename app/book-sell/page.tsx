@@ -127,14 +127,13 @@ const page = () => {
       }
 
       const result = await addProducts(formData).unwrap();
-      console.log(result);
+
       if (result.success) {
         router.push(`books/${result.data._id}`);
         toast.success("Book Added Successfully");
         reset();
       }
     } catch (error) {
-      console.log(error);
       toast.error("Failed to Add Book, Please Try Again later");
     }
   };
@@ -662,8 +661,7 @@ const page = () => {
                       {...register("paymentDetails.upiId", {
                         required: "UPI ID is required",
                         pattern: {
-                          value:
-                            /^[a-zA-Z0-9._-]{2,256}@[a-zA-Z]{2,64}$/,
+                          value: /^[a-zA-Z0-9._-]{2,256}@[a-zA-Z]{2,64}$/,
                           message: "Invalid UPI ID for format",
                         },
                       })}

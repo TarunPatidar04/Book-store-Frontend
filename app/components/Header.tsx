@@ -52,18 +52,16 @@ const Header = () => {
     (state: RootState) => state.user.isLoginDialogOpen,
   );
   const user = useSelector((state: RootState) => state.user.user);
-  console.log(user);
 
   const cartItemCount = useSelector(
     (state: RootState) => state.cart.items.length,
   );
   const { data: cartData } = useGetCartQuery(user?._id, { skip: !user?._id });
-const [searchTerms, setSearchTerms] = useState("");
+  const [searchTerms, setSearchTerms] = useState("");
 
-
-const handleSearch = () => {
-    router.push(`/books?search=${encodeURIComponent(searchTerms)}`)
-}
+  const handleSearch = () => {
+    router.push(`/books?search=${encodeURIComponent(searchTerms)}`);
+  };
 
   const [logoutMutation] = useLogoutMutation();
   const userPlaceHolder = user?.name

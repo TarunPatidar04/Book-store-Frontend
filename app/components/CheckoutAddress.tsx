@@ -100,7 +100,6 @@ const CheckoutAddress = ({
       setShowAddressForm(false);
       setEditingAddress(null);
     } catch (error: any) {
-      console.log(error?.data?.message);
       toast.error(error?.data?.message || "Failed to add address");
     }
   };

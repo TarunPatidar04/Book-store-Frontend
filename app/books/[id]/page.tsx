@@ -80,7 +80,6 @@ const page = () => {
           toast.error(result.message || "Failed to add book to cart");
         }
       } catch (error: any) {
-        console.log(error?.data?.message);
         toast.error(error?.data?.message || "Failed to add book to cart");
       } finally {
         setIsAddToCart(false);
@@ -111,7 +110,6 @@ const page = () => {
         }
       }
     } catch (error: any) {
-      console.log(error?.data?.message);
       toast.error(
         error?.data?.message || "Failed to remove book from wishlist",
       );

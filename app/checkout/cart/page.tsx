@@ -106,7 +106,6 @@ const page = () => {
         toast.error(result.message || "Failed to remove book from cart");
       }
     } catch (error: any) {
-      console.log(error?.data?.message);
       toast.error(error?.data?.message || "Failed to remove book from cart");
     }
   };
@@ -134,7 +133,6 @@ const page = () => {
         }
       }
     } catch (error: any) {
-      console.log(error?.data?.message);
       toast.error(
         error?.data?.message || "Failed to remove book from wishlist",
       );
@@ -182,7 +180,6 @@ const page = () => {
           throw new Error(result.message);
         }
       } catch (error: any) {
-        console.log(error?.data?.message);
         toast.error(error?.data?.message || "Failed to process to checkout");
       }
     } else if (step === "address") {
@@ -207,7 +204,6 @@ const page = () => {
         }).unwrap();
         toast.success("Address update Successfully");
       } catch (error) {
-        console.log(error);
         toast.error("Failed to update Address");
       }
     }
@@ -255,7 +251,6 @@ const page = () => {
               throw new Error(result.message);
             }
           } catch (error: any) {
-            console.log(error?.data?.message);
             toast.error(error?.data?.message || "Failed to verify payment");
           }
         },
@@ -272,7 +267,6 @@ const page = () => {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (error: any) {
-      console.log(error?.data?.message);
       toast.error(error?.data?.message || "Failed to place order");
     } finally {
       setIsProcessing(false);

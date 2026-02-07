@@ -97,13 +97,12 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
     try {
       const { email, password, name } = data;
       const result = await register({ email, password, name }).unwrap();
-      console.log(result);
+
       if (result.success) {
         toast.success("Verification mail sent to your email, Please Verify");
         dispatch(toggleLoginDialog());
       }
     } catch (error) {
-      console.log(error);
       toast.error("Email already exists");
     } finally {
       setSignupLoading(false);
@@ -114,7 +113,7 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
     setLoginLoading(true);
     try {
       const result = await login(data).unwrap();
-      console.log(result);
+
       if (result.success) {
         toast.success("User Login Successfully");
         dispatch(toggleLoginDialog());
@@ -122,7 +121,6 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
         dispatch(authStatus());
       }
     } catch (error) {
-      console.log(error);
       toast.error("Invalid Email or Password");
     } finally {
       setLoginLoading(false);
@@ -140,7 +138,6 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
         toast.success("User Login Successfully");
       }, 3000);
     } catch (error) {
-      console.log(error);
       toast.error("Invalid Email or Password");
     } finally {
       setGoogleLoading(false);
@@ -156,7 +153,6 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
         setForgetPasswordSuccess(true);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Failed to send Password Reset Link");
     } finally {
       setForgotPasswordLoading(false);
