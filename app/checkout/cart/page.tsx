@@ -1,7 +1,9 @@
 "use client";
 import CartItems from "@/app/components/CartItems";
+import CheckoutAddress from "@/app/components/CheckoutAddress";
 import NoData from "@/app/components/NoData";
 import PriceDetails from "@/app/components/PriceDetails";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,6 +11,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Address } from "@/lib/types/type";
 import {
   useAddToWishlistMutation,
@@ -150,7 +159,8 @@ const page = () => {
     if (step === "cart") {
       try {
         const result = await createOrUpdateOrderMutation({
-          data: { items: cart.items, totalAmount: totalAmount },
+          items: cart.items,
+          totalAmount: totalAmount,
         }).unwrap();
         if (result.success) {
           toast.success("order created successfully");
@@ -180,7 +190,8 @@ const page = () => {
     if (orderId) {
       try {
         await createOrUpdateOrderMutation({
-          updates: { orderId, shippingAddress: address },
+          orderId,
+          shippingAddress: address,
         }).unwrap();
         toast.success("Address update Successfully");
       } catch (error) {
@@ -297,8 +308,50 @@ const page = () => {
                   )
                 }
               />
+
+              {selectedAddress && (
+                <Card className="shadow-lg mt-6 mb-6">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Delivery Address</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-1">
+                      <p>{selectedAddress?.state}</p>
+                      {selectedAddress?.addressLine2 && (
+                        <p>{selectedAddress?.addressLine2}</p>
+                      )}
+                      <p>
+                        {selectedAddress?.city},{selectedAddress?.state}{" "}
+                        {selectedAddress?.pinCode}
+                      </p>
+                      <p>Phone: {selectedAddress?.phoneNumber}</p>
+                    </div>
+                    <Button
+                      className="mt-4"
+                      variant={"outline"}
+                      onClick={() => setShowAddressDialog(true)}
+                    >
+                      <MapPin className="mr-2 h-4 w-4" />
+                      Change Address
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
+          <Dialog open={showAddressDialog} onOpenChange={setShowAddressDialog}>
+            <DialogContent className="sm:max-w-[600px]">
+              <DialogHeader className="">
+                <DialogTitle className="">
+                  Select or Add Delivery Address
+                </DialogTitle>
+              </DialogHeader>
+              <CheckoutAddress
+                onAddressSelect={handleSelectAddress}
+                selectedAddressId={selectedAddress?._id}
+              />
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </>

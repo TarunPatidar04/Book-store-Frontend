@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api";
 
 const API_URLS = {
   // User related URLS
   REGISTER: `${BASE_URL}/auth/register`,
   LOGIN: `${BASE_URL}/auth/login`,
-  VERIFY_EMAIL: (token: string) => `${BASE_URL}/auth/verify-email/${token}`, 
+  VERIFY_EMAIL: (token: string) => `${BASE_URL}/auth/verify-email/${token}`,
   FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
   RESET_PASSWORD: (token: string) => `${BASE_URL}/auth/reset-password/${token}`,
   VERIFY_AUTH: `${BASE_URL}/auth/verify-auth`,
@@ -217,9 +218,9 @@ export const api = createApi({
     }),
 
     createOrUpdateOrder: builder.mutation({
-      query: ({ orderId, orderData }) => ({
+      query: (orderData) => ({
         url: API_URLS.ORDERS,
-        method: orderId ? "PATCH" : "POST",
+        method: "POST",
         body: orderData,
       }),
       invalidatesTags: ["Order"],
