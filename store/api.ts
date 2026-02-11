@@ -49,6 +49,14 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     credentials: "include",
+    prepareHeaders: (headers) => {
+      // Get token from localStorage as fallback for cross-origin requests
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   tagTypes: ["User", "Product", "Cart", "Wishlist", "Order", "Address"],
   endpoints: (builder) => ({

@@ -94,6 +94,8 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logoutMutation({}).unwrap();
+      // Clear token from localStorage
+      localStorage.removeItem("access_token");
       dispatch(logout());
       toast.success("Logout Successfully");
       setIsDropDownOpen(false);

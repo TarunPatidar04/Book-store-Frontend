@@ -115,9 +115,13 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
       const result = await login(data).unwrap();
 
       if (result.success) {
+        // Store token in localStorage for cross-origin requests
+        if (result.data?.accessToken) {
+          localStorage.setItem("access_token", result.data.accessToken);
+        }
         toast.success("User Login Successfully");
         dispatch(toggleLoginDialog());
-        dispatch(setUser(result.user));
+        dispatch(setUser(result.data.user));
         dispatch(authStatus());
       }
     } catch (error) {
