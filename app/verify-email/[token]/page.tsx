@@ -48,6 +48,10 @@ const VerifyEmailPage = () => {
       try {
         const result = await verifyEmail(token).unwrap();
         if (result.success) {
+          // Store token in localStorage for cross-origin requests
+          if (result.data?.accessToken) {
+            localStorage.setItem("access_token", result.data.accessToken);
+          }
           dispatch(setIsEmailVerified(true));
           setVarificationStatus("success");
           dispatch(authStatus());

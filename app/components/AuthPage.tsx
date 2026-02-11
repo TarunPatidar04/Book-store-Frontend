@@ -121,7 +121,7 @@ const AuthPage = ({ isLogginOpen, setIsLoginOpen }: LoginProps) => {
         }
         toast.success("User Login Successfully");
         dispatch(toggleLoginDialog());
-        dispatch(setUser(result.data.user));
+        dispatch(setUser(result.data?.user));
         dispatch(authStatus());
       }
     } catch (error) {
